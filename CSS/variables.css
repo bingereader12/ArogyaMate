@@ -1,0 +1,24 @@
+:root{
+ --green:#005555;
+ --white:#fff;
+ --grey: #ececec;
+ --font: #000;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(../font/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: PoppinsBold;
+    src: url(../font/Poppins-Bold.ttf);
+}
+
+@font-face {
+    font-family: PoppinsExtraBold;
+    src: url(../font/Poppins-ExtraBold.ttf);
+}
+*{
+    font-family: Poppins;
+}

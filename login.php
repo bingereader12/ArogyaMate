@@ -17,8 +17,8 @@
                 // $_SESSION['user'] = $username;
                 // $_SESSION['id'] = $row['pid'];
                 // $_SESSION['loggedin']=true;
-                echo 'loggedin';
-                // header("Location:http://localhost/index.php");
+                // echo 'loggedin';
+                header("Location:./profile.php");
             }else{
             echo "<script>alert('Password doesnt match');</script>";
             }
@@ -26,7 +26,6 @@
         echo "<script>alert('Phone No. doesnt match');</script>";
         }
     }
-
 
     pg_close($conn);
 ?>
@@ -44,38 +43,39 @@
     </head> -->
 
 <body>
+
         <div class="bg">
             <img src="./Assets/bg.png" alt="Background Image">
         </div>
-    <div class="right">
-        <div class="box">
-            <form action="login.php" method="post">
-                <div class="header">Login</div>
-                    <div class="content">
-                        <div class="input">
-                            <input type="text" placeholder="Phone No." id="phoneno" name="phoneno" required />
-                        </div>
-                        <div class="input">
-                            <input type="password" placeholder="Password" id="password" name="password" required />
-                        </div>
-                        <!-- <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Email address</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
-                        </div> -->
-                        <div class="input submit">
-                            <input type="submit" value="Login" name="submitbtn" />
-                        </div>
-                        <div class="signUp input">
-                            <p>New User? <a href="./signup.php">Sign up</a></p>
+        <div class="right">
+            <div class="box">
+                <form action="login.php" method="post">
+                    <div class="header">Login</div>
+                        <div class="content">
+                            <div class="input">
+                                <input type="text" placeholder="Phone No." id="phoneno" name="phoneno" required />
+                            </div>
+                            <div class="input">
+                                <input type="password" placeholder="Password" id="password" name="password" required />
+                            </div>
+                            <!-- <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                <label for="floatingInput">Email address</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                <label for="floatingPassword">Password</label>
+                            </div> -->
+                            <div class="input submit">
+                                <input type="submit" value="Login" name="submitbtn" />
+                            </div>
+                            <div class="signUp input">
+                                <p>New User? <a href="./signup.php">Sign up</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>
