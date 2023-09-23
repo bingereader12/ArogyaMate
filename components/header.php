@@ -7,8 +7,8 @@
             </div>
             <div class="navlinks">
                 <ul class="navItems flex">
-                    <li><a class="alink" href="">Home</a></li>
-                    <li><a class="alink" href="">Explore</a></li>
+                    <li><a class="alink" href="index.php">Home</a></li>
+                    <li><a class="alink" href="explore.php">Explore</a></li>
                     <li><a class="alink" href="">Connect</a></li>
                     <li><a class="alink" href="">Help</a></li>
                     <li><a class="alink" href="">About us</a></li>

@@ -2,9 +2,9 @@
     session_start();
     include('./connection.php');
 
-    if (isset($_POST['submitbtn'])) {
+    if (isset($_POST['login_btn'])) {
 
-        $phone_no = $_POST['phoneno'];
+        $phone_no = $_POST['phone_no'];
         $password = $_POST['password'];
 
         $sql = "SELECT * FROM signup WHERE mobile_no = '$phone_no'";
@@ -14,10 +14,9 @@
         if ($rows == 1) {
             $row = pg_fetch_assoc($res);
             if(password_verify($password,$row['password'])){
-                // $_SESSION['user'] = $username;
-                // $_SESSION['id'] = $row['pid'];
-                // $_SESSION['loggedin']=true;
-                // echo 'loggedin';
+                $_SESSION['user'] = $phone_no;
+                $_SESSION['id'] = $row['pid'];
+                $_SESSION['loggedin']=true;
                 header("Location:./profile.php");
             }else{
             echo "<script>alert('Password doesnt match');</script>";
@@ -28,54 +27,125 @@
     }
 
     pg_close($conn);
+  
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In</title>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login</title>
     <link rel="stylesheet" href="./CSS/login.css" />
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </head> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<body>
+  <body>
+    <div class="pagecontainer">
+      <img src="img/login.svg" alt="login" class="custom-image" />
+      <div class="wrapper">
+        <div class="title-text">
+          <div class="title login">Login</div>
+          <div class="title signup">Signup</div>
+        </div>
+        <div class="form-container">
+          <div class="slide-controls">
+            <input type="radio" name="slide" id="login" checked />
+            <input type="radio" name="slide" id="signup" />
+            <label for="login" class="slide login">Login</label>
+            <label for="signup" class="slide signup">Signup</label>
+            <div class="slider-tab"></div>
+          </div>
+          <div class="form-inner">
+            <form action="login.php" method="POST" class="login">
+              <div class="field">
+                <input type="number" placeholder="Phone Number" name="phone_no" required />
+              </div>
+              <div class="field">
+                <input type="password" placeholder="Password" name="password" required />
+              </div>
+              <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Login" name="login_btn" />
+              </div>
+              <div class="signup-link">
+                Not a member? <a href="">Signup now</a>
+              </div>
+            </form>
+            <form action="signup.php" method="POST" class="signup">
+              <div class="field">
+                <input
+                  type="text"
+                  placeholder="Aadhar Number"
+                  name="aadhar_no"
+                  id="aadhar_no"
+                  required
+                />
+              </div>
+              <div class="field">
+                <input
+                  type="number"
+                  placeholder="Phone Number"
+                  name="phone_no"
+                  id="phone_no"
+                  required
+                />
+              </div>
+              <select class="choice" name="choose" id="choose">
+                <option value="seeker">Healthcare Seeker</option>
+                <option value="provider">Healthcare Provider</option>
+              </select>
+              <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Generate PID" name="signup_btn" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="svgcontainer" style="width: 1528px">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1000 100"
+        preserveAspectRatio="none"
+      >
+        <path
+          class="elementor-shape-fill"
+          opacity="0.33"
+          d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7 c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z"
+        ></path>
+        <path
+          class="elementor-shape-fill"
+          opacity="0.66"
+          d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1 s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z"
+        ></path>
+        <path
+          class="elementor-shape-fill"
+          d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0 h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z"
+        ></path>
+      </svg>
+    </div>
+    <div class="blank"></div>
 
-        <div class="bg">
-            <img src="./Assets/bg.png" alt="Background Image">
-        </div>
-        <div class="right">
-            <div class="box">
-                <form action="login.php" method="post">
-                    <div class="header">Login</div>
-                        <div class="content">
-                            <div class="input">
-                                <input type="text" placeholder="Phone No." id="phoneno" name="phoneno" required />
-                            </div>
-                            <div class="input">
-                                <input type="password" placeholder="Password" id="password" name="password" required />
-                            </div>
-                            <!-- <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                <label for="floatingInput">Email address</label>
-                            </div>
-                            <div class="form-floating">
-                                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Password</label>
-                            </div> -->
-                            <div class="input submit">
-                                <input type="submit" value="Login" name="submitbtn" />
-                            </div>
-                            <div class="signUp input">
-                                <p>New User? <a href="./signup.php">Sign up</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </body>
+    <script>
+      const loginText = document.querySelector(".title-text .login");
+      const loginForm = document.querySelector("form.login");
+      const loginBtn = document.querySelector("label.login");
+      const signupBtn = document.querySelector("label.signup");
+      const signupLink = document.querySelector("form .signup-link a");
+      signupBtn.onclick = () => {
+        loginForm.style.marginLeft = "-50%";
+        loginText.style.marginLeft = "-50%";
+      };
+      loginBtn.onclick = () => {
+        loginForm.style.marginLeft = "0%";
+        loginText.style.marginLeft = "0%";
+      };
+      signupLink.onclick = () => {
+        signupBtn.click();
+        return false;
+      };
+    </script>
+  </body>
 </html>
