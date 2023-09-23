@@ -7,15 +7,18 @@
         $phone_no = $_POST['phoneno'];
         $password = $_POST['password'];
 
-        $sql = "SELECT * FROM user WHERE phone_no = '$phone_no'";
+        $sql = "SELECT * FROM signup WHERE mobile_no = '$phone_no'";
         $res = pg_query($conn , $sql);
         $rows = pg_num_rows($res);
+
         if ($rows == 1) {
+            $row = pg_fetch_assoc($res);
             if(password_verify($password,$row['password'])){
-                $_SESSION['user'] = $username;
-                $_SESSION['id'] = $row['pid'];
-                $_SESSION['loggedin']=true;
-                header("Location:http://localhost/index.php");
+                // $_SESSION['user'] = $username;
+                // $_SESSION['id'] = $row['pid'];
+                // $_SESSION['loggedin']=true;
+                echo 'loggedin';
+                // header("Location:http://localhost/index.php");
             }else{
             echo "<script>alert('Password doesnt match');</script>";
             }
