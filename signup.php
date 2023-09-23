@@ -1,6 +1,7 @@
 <?php
     session_start();
     include('./connection.php');
+    include('encryptnew.php');
 
     if(isset($_POST['submit_btn'])){
         $aadhar_no = $_POST['aadhar_no'];
@@ -13,20 +14,22 @@
         $password = $_POST['password'];
         $doc_reg = $_POST['doc_reg'];
 
+        // $pid = uniqid();
+
         $exists = false;
         $phone_copy = "SELECT * FROM signup WHERE mobile_no ='$phone_no'";
-        if (pg_num_rows(pg_query($conn, $phone_copy)) > 0) {
+        if (pg_num_rows(pg_query($phone_copy)) > 0) {
             $exists = true;
             echo "<script>alert('Phone No. Already Exists!');</script>";
         }
         $emailcopy = "SELECT * FROM signup WHERE aadhar_no='$aadhar_no'";
-        if (pg_num_rows(pg_query($conn, $emailcopy)) > 0) {
+        if (pg_num_rows(pg_query($emailcopy)) > 0) {
             $exists = true;
             echo "<script>alert('Aadhar No. Already Exists!');</script>";
         }
         if($doc_reg != -1){
-            $doc_copy = "SELECT * FROM signup WHERE doc_reg ='$doc_reg'";
-            if (pg_num_rows(pg_query($conn, $doc_copy)) > 0) {
+            $doc_copy = "SELECT * FROM signup WHERE doctor_reg ='$doc_reg'";
+            if (pg_num_rows(pg_query($doc_copy)) > 0) {
             $exists = true;
             echo "<script>alert('Doctor Registration ID Already Exists!');</script>";
             }
@@ -34,14 +37,19 @@
 
         if(!$exists){
                $password = password_hash($password, PASSWORD_DEFAULT);
-               $query = "INSERT INTO signup (fname, mname, lname, dob, gender, aadhar_no, mobile_no, password) VALUES ('$fname', '$mname', '$lname', '$bdate', '$gender', $aadhar_no, $phone_no, '$password')";
-               
+               $demoquery = pg_num_rows(pg_query("SELECT * FROM signup"));
+               $pid = encrypt( 10000000000000+$demoquery ,$cipher,$key,$ivlen,$iv);
+               $aadhar_no = encrypt($aadhar_no,$cipher,$key,$ivlen,$iv);
+               echo $pid;
+               echo $aadhar_no;
+               $query = "INSERT INTO signup(id,fname, mname, lname, dob, gender, aadhar_no, mobile_no, password) VALUES ('$pid','$fname', '$mname', '$lname', '$bdate', '$gender', '$aadhar_no', $phone_no, '$password')";
                
                $res = pg_query($query);
                if(!$res){
                    echo 'Failed to connect';
                 }else{
                     header("Location: ./index.php");
+                    
                 }
         }
 

@@ -14,7 +14,7 @@
 
 <nav class="position-fixed nav nav1 nav2 flex-column top-0 start-0 p-0 m-0" onmouseenter="navExp()" onmouseleave="navCol()" style="height:100vh; overflow:hidden;">
         <a class="navbar-brand" href="./"><img id="logo" src="./img/logo.png" class="position-relative img-fluid logo logo1 mt-2 mb-3 w-100"></a>
-        <a class="nav-link nav-link1 link2 active"  aria-current="page" href="./dash.html">
+        <a class="nav-link nav-link1 link2 active"  aria-current="page" href="dash.php">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
                 <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
                 <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
@@ -34,38 +34,25 @@
             </svg>
             <span class="dashtext dashtext2">Signout</span>
         </a>
-        <div class="position-fixed account account2 bottom-0">
-            <div class="acctext dashtext2">
-                <span><b>User ID:</b> </span>
-                <span><b>Role:</b> </span>
-                <span><b>Lab No:</b> </span>
-                <span><b>Lab Name:</b> </span>
-            </div>
-        </div>
+            
     </nav>
 <script>
     const logo = document.getElementById("logo")
     const nav = document.getElementsByClassName("nav1")
     const navlink = document.getElementsByClassName("nav-link1")
-    const acc = document.getElementsByClassName("account")
     const dtext = document.getElementsByClassName("dashtext")
-    const atext = document.getElementsByClassName("acctext")
     function navExp(){
         // logo.src = "../Assets/logo.png";
         logo.classList.remove('logo1');
         nav[0].classList.remove('nav2');
         for (i = 0; i < navlink.length; i++) { navlink[i].classList.remove('link2'); }
-        acc[0].classList.remove('account2');
         for (i = 0; i < dtext.length; i++) { dtext[i].classList.remove('dashtext2'); }
-        atext[0].classList.remove('dashtext2');
     }
     function navCol(){
         // logo.src = "../Assets/imagelogo.png";
         logo.classList.add('logo1');
         nav[0].classList.add('nav2');
         for (i = 0; i < navlink.length; i++) { navlink[i].classList.add('link2'); }
-        acc[0].classList.add('account2');
         for (i = 0; i < dtext.length; i++) { dtext[i].classList.add('dashtext2'); }
-        atext[0].classList.add('dashtext2');
-    }
+  }
 </script>
