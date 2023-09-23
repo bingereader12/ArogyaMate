@@ -1,3 +1,60 @@
+<?php
+  session_start();
+  include('./connection.php');
+  if(isset($_POST['contact_submit'])){
+    $phone_no = $_SESSION['user'];
+    $query = "SELECT * FROM signup WHERE mobile_no = '$phone_no'";    
+    $res = pg_query($query);
+    $row = pg_fetch_assoc($res);
+    $pid = $row['id'];
+
+
+    $name1 = $_POST['name1'];
+    $relation1 = $_POST['relation1'];
+    $contact1 = $_POST['contact1'];
+    $query = "INSERT INTO emergency_contacts (pid, name, relation, contact_no) VALUES ('$pid', '$name1', '$relation1', '$contact1')";    
+    $res = pg_query($query);
+    if(!$res){
+      echo 'Failed to Add Emergency Contacts';
+    }
+
+    if(isset($_POST['name2']) && isset($_POST['relation2']) && isset($_POST['contact2'])){
+      $name2 = $_POST['name2'];
+      $relation2 = $_POST['relation2'];
+      $contact2 = $_POST['contact2'];
+      $query = "INSERT INTO emergency_contacts (pid, name, relation, contact_no) VALUES ('$pid', '$name2', '$relation2', '$contact2')";    
+      $res = pg_query($query);
+      if(!$res){
+        echo 'Failed to Add Emergency Contacts';
+      }
+    }
+
+    if(isset($_POST['name3']) && isset($_POST['relation3']) && isset($_POST['contact3'])){
+      $name3 = $_POST['name3'];
+      $relation3 = $_POST['relation3'];
+      $contact3 = $_POST['contact3']; 
+      $query = "INSERT INTO emergency_contacts (pid, name, relation, contact_no) VALUES ('$pid', '$name3', '$relation3', '$contact3')";    
+      $res = pg_query($query);
+      if(!$res){
+        echo 'Failed to Add Emergency Contacts';
+      }
+    }
+
+    if(isset($_POST['name4']) && isset($_POST['relation4']) && isset($_POST['contact4'])){
+      $name4 = $_POST['name4'];
+      $relation4 = $_POST['relation4'];
+      $contact4 = $_POST['contact4'];
+      $query = "INSERT INTO emergency_contacts (pid, name, relation, contact_no) VALUES ('$pid', '$name4', '$relation4', '$contact4')";    
+      $res = pg_query($query);
+      if(!$res){
+        echo 'Failed to Add Emergency Contacts';
+      }
+    }
+
+    // exit();
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +68,7 @@
 </head>
 <body>
   <?php
-  include('./components/sidebar.php')
-  ?>
+  include('./components/sidebar.php')?>
     <Button><a href="login.html">Login</a></Button>
     <Button><a href="signup.html">Signup</a></Button>
     <Button><a href="dash.html">Dash</a></Button>
@@ -50,10 +106,10 @@
                         <span class="leftText col-8">Hiral Patel: <span class="rel">(Fam)</span> </span><a href="tel:7447425397" class="btn rightText col-4"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
-                        <span class="leftText col-8">Dhruv Dedhia:<span class="rel">(Fri)</span> </span><a href="tel:7447425397" class="btn rightText col-4"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                        <span class="leftText col-8">Dhruv Dedhia:<span class="rel">(Frnd)</span> </span><a href="tel:7447425397" class="btn rightText col-4"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
-                        <span class="leftText col-8">Aryan Shirsa:<span class="rel">(Doc)</span> </span><a href="tel:7447425397" class="btn rightText col-4"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                        <span class="leftText col-8">Aryan Shirsat:<span class="rel">(Doc)</span> </span><a href="tel:7447425397" class="btn rightText col-4"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
                 </div>
@@ -174,84 +230,88 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="">
+            <form action="" method="POST">
                 <div class="row">
+                  <!-- Contact 1 -->
                     <div class="form-floating mb-3 col-5">
-                        <input type="text" class="form-control" id="name1" placeholder="John Wick" required>
+                        <input type="text" class="form-control" id="name1" name="name1" placeholder="John Wick" required>
                         <label for="name1" class="ms-3">Name</label>
                     </div>
                     <div class="form-floating col-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="relation1" required>
                           <option selected hidden disabled>---</option>
-                          <option value="1">Family</option>
-                          <option value="2">Friend</option>
-                          <option value="3">Doctor</option>
+                           <option value="Fam">Family</option>
+                          <option value="Frnd">Friend</option>
+                          <option value="Doc">Doctor</option>
                         </select>
                         <label for="floatingSelect" class="ms-3">Relation</label>
                       </div>
                     <div class="form-floating mb-3 col-4">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="0000000000" required>
+                        <input type="number" class="form-control" id="floatingInput" placeholder="0000000000" name="contact1" required>
                         <label for="num1" class="ms-3">Contact</label>
                     </div>
+                      <!-- Contact 2 -->
                     <div class="form-floating mb-3 col-5">
-                        <input type="text" class="form-control" id="name1" placeholder="John Wick">
+                        <input type="text" class="form-control" id="name1" name="name2"  placeholder="John Wick">
                         <label for="name1" class="ms-3">Name</label>
                     </div>
                     <div class="form-floating col-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <select class="form-select" id="floatingSelect"  name="relation2" aria-label="Floating label select example">
                           <option selected hidden disabled>---</option>
-                          <option value="1">Family</option>
-                          <option value="2">Friend</option>
-                          <option value="3">Doctor</option>
+                           <option value="Fam">Family</option>
+                          <option value="Frnd">Friend</option>
+                          <option value="Doc">Doctor</option>
                         </select>
                         <label for="floatingSelect" class="ms-3">Relation</label>
                       </div>
                     <div class="form-floating mb-3 col-4">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="0000000000">
+                        <input type="number" class="form-control" id="floatingInput" name="contact2"  placeholder="0000000000">
                         <label for="num1" class="ms-3">Contact</label>
                     </div>
+                      <!-- Contact 3 -->
                     <div class="form-floating mb-3 col-5">
-                        <input type="text" class="form-control" id="name1" placeholder="John Wick">
+                        <input type="text" class="form-control" id="name1" name="name3"  placeholder="John Wick">
                         <label for="name1" class="ms-3">Name</label>
                     </div>
                     <div class="form-floating col-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <select class="form-select" id="floatingSelect"  name="relation3" aria-label="Floating label select example">
                           <option selected hidden disabled>---</option>
-                          <option value="1">Family</option>
-                          <option value="2">Friend</option>
-                          <option value="3">Doctor</option>
+                          <option value="Fam">Family</option>
+                          <option value="Frnd">Friend</option>
+                          <option value="Doc">Doctor</option>
                         </select>
                         <label for="floatingSelect" class="ms-3">Relation</label>
                       </div>
                     <div class="form-floating mb-3 col-4">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="0000000000">
+                        <input type="number" class="form-control" id="floatingInput" name="contact3"  placeholder="0000000000">
                         <label for="num1" class="ms-3">Contact</label>
                     </div>
+                      <!-- Contact 4 -->
                     <div class="form-floating mb-3 col-5">
-                        <input type="text" class="form-control" id="name1" placeholder="John Wick">
+                        <input type="text" class="form-control" id="name1"  name="name4" placeholder="John Wick">
                         <label for="name1" class="ms-3">Name</label>
                     </div>
                     <div class="form-floating col-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <select class="form-select" id="floatingSelect"  name="relation4" aria-label="Floating label select example">
                           <option selected hidden disabled>---</option>
-                          <option value="1">Family</option>
-                          <option value="2">Friend</option>
-                          <option value="3">Doctor</option>
+                          <option value="Fam">Family</option>
+                          <option value="Frnd">Friend</option>
+                          <option value="Doc">Doctor</option>
                         </select>
                         <label for="floatingSelect" class="ms-3">Relation</label>
                       </div>
                     <div class="form-floating mb-3 col-4">
-                        <input type="number" class="form-control" id="floatingInput" placeholder="0000000000">
+                        <input type="number" class="form-control" id="floatingInput"  name="contact4" placeholder="0000000000">
                         <label for="num1" class="ms-3">Contact</label>
                     </div>
                 </div>
-            </form>
+            <!-- </form> -->
             
             
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" name="contact" class="btn btn-success">Submit</button>
+          <button type="submit" name="contact_submit" class="btn btn-success"><input type="submit" name="contact_submit" hidden>Submit</button>
         </form>
         </div>
       </div>
