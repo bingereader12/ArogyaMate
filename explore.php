@@ -19,17 +19,17 @@
     <main>
         <section class="options-container flex">
             <!-- Emergency Contacts Option -->
-            <a class="option-button" href="">
+            <a class="option-button" href="communities.html">
                 <div class="option">
-                    <h2>Emergency Contacts</h2>
+                    <h2>Communities</h2>
                     <p>
-                        In case of emergencies, here are some important contact numbers you should keep handy.
+                        In case of emergencies, here are some important community links numbers you should keep handy.
                     </p>
                 </div>
             </a>
 
             <!-- Government Schemes Option -->
-            <a class="option-button" href="schemes.php">
+            <a class="option-button" href="governmentschemes.php">
                 <div class="option">
                     <h2>Government Schemes</h2>
                     <p>
@@ -39,7 +39,7 @@
             </a>
 
             <!-- Helpline Numbers Option -->
-            <a class="option-button" href="">
+            <a class="option-button" href="contacts.php">
                 <div class="option">
                     <h2>Helpline Numbers</h2>
                     <p>

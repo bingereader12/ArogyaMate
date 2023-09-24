@@ -75,10 +75,90 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
   if(isset($_POST['workAddress'])){
     $name = $_POST['name'];
     $address = $_POST['address'];
+    $que=pg_query("SELECT * FROM address WHERE doc_id='$doc_id'");
+    if(pg_num_rows($que)>0)
+    $query="UPDATE address SET name='$name', address='$address' WHERE doc_id='$doc_id'";
+    else 
     $query = "INSERT INTO address (doc_id, name, address) VALUES ('$doc_id','$name','$address')";
     pg_query($query);
   }
 
+  if(isset($_POST['docdata'])){
+    // echo "Done<br>";
+    if(isset($_POST['exp'])){
+      $selectedOptions = $_POST['exp'];
+      $query="SELECT * FROM doc_data WHERE doc_id='$doc_id'";
+      $res=pg_query($query);
+      if (pg_num_rows($res)>0) {
+        $query="UPDATE doc_data SET exp=$selectedOptions WHERE doc_id='$doc_id'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } else {
+        $query="INSERT INTO doc_data(doc_id,exp) VALUES ('$doc_id',$selectedOptions)";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['deg'])){
+      $selectedOptions = $_POST['deg'];
+      $query="SELECT * FROM doc_data WHERE doc_id='$doc_id'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['deg']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE doc_data SET deg='$option' WHERE doc_id='$doc_id'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO doc_data(doc_id,deg) VALUES ('$doc_id','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['special'])){
+      $selectedOptions = $_POST['special'];
+      $query="SELECT * FROM doc_data WHERE doc_id='$doc_id'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['special']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE doc_data SET special='$option' WHERE doc_id='$doc_id'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO doc_data(doc_id,special) VALUES ('$doc_id','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['qual'])){
+      $selectedOptions = $_POST['qual'];
+      $query="SELECT * FROM doc_data WHERE doc_id='$doc_id'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['qual']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE doc_data SET qual='$option' WHERE doc_id='$doc_id'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO doc_data(doc_id,qual) VALUES ('$doc_id','$option')";
+        $res=pg_query($query);
+      }
+    
+    }
+    header('Location:./doctorprofile.php');
+
+  }
 
 
 
@@ -126,13 +206,14 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
                 <div class="card1 row gx-3">
                     
                         <span class="name"><?php echo $row['fname']." ".$row['mname']." ".$row['lname'] ?></span>
-                        <span class="leftText col-4">PID: </span><span class="rightText col-8"><b><?php echo $dec_pid?></b></span>
+                        <span class="leftText col-4">PID: <span><i class="fa-solid fa-eye" id="eye" onclick="togglePrivateInfo()"></i><i style="display:none;" class="fa-solid fa-eye-slash" id="eye" onclick="togglePrivateInfo()"></i></span></span><span class="rightText col-8"><b class="private-info" style="display:none;"><?php echo $dec_pid?></b><b class="private-info2" style="display:block;">XXXXXXXXXXXXXX</b></span>
                         <span class="leftText col-4">Registration ID: </span><span class="rightText col-8"><b><?php echo $row['doctor_reg'] ?></b></span>
                         <span class="leftText col-4">Gender: </span><span class="rightText col-8"><b><?php echo $row['gender'] ?></b></span>
                         <span class="leftText col-4">Date of birth:: </span><span class="rightText col-8"><b><?php echo $row['dob'] ?></b></span>
-                        <span class="leftText col-4">Blood Grp: </span><span class="rightText col-8"><b><?php echo $row['blood_grp'] ?></b> <a class="btn" data-bs-toggle="modal" data-bs-target="#bloodGroup"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <span class="leftText col-4">Blood Grp: </span><span class="rightText col-8"><b><?php if( $row['blood_grp']==NULL) { echo "None"; ?><a class="btn" data-bs-toggle="modal" data-bs-target="#bloodGroup"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                          </svg></a></span>
+                          </svg></a> <?php } else echo $row['blood_grp']?></b> </span>
+
 
                 </div>
             </div>
@@ -195,13 +276,26 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                           </svg></a></span> 
                         <hr>
-                        <span class="leftText col-4">Experience: </span> <span class="rightText col-8"><b>15 Years </b></span>
-                        <span class="leftText col-4">Degrees: </span> <span class="rightText col-8"><b><span class="badge rounded-pill bg-dark">Partially Impaired vision | <form action="" style="margin:0; padding: 0; display: inline;"><a href="" class="btn" style="text-decoration: none; padding: 0; margin: 0; color: #f00;">X</a></form></span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Specialised in: </span>    <span class="rightText col-8"><b><span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Other Qualifications: </span>      <span class="rightText col-8"><b><span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span></b></span>
+                        <?php 
+                        $docquery="SELECT * FROM doc_data WHERE doc_id='$doc_id'";
+                        $docres=pg_query($docquery);
+                        while($health_row=pg_fetch_assoc($docres)){
+                          $exp=$health_row['exp'];
+                          $degs=explode(',',$health_row['deg']);
+                          $specials=explode(',',$health_row['special']);
+                          $quals=explode(',',$health_row['qual']);
+                        // }
+                        ?>
+                        <span class="leftText col-4">Experience: </span> <span class="rightText col-8"><b><?php echo $exp; ?></b></span>
+                        <span class="leftText col-4">Degrees: </span> <span class="rightText col-8 py-2"><b><?php foreach($degs as $deg){?><span class="badge rounded-pill bg-dark"><?php echo $deg; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4">Specialised In: </span>      <span class="rightText col-8 py-2"><b><?php foreach($specials as $special){?><span class="badge rounded-pill bg-dark"><?php echo $special; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4">Other Qualifications: </span>      <span class="rightText col-8 py-2"><b><?php foreach($quals as $qual){?><span class="badge rounded-pill bg-dark"><?php echo $qual; ?></span> <?php } ?> </b></span>
                         <!-- <span class="leftText col-4">Vaccines: </span>     <span class="rightText col-8"><b><span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span></b></span>
                         <span class="leftText col-4">Surgeries: </span>    <span class="rightText col-8"><b><span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span></b></span> -->
-                        </div>
+                        <?php
+                        }
+                        ?>
+                      </div>
             </div>
             <div class="col-5">
              
@@ -272,11 +366,11 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Health Data</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Doctor Data</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="">
+            <form action="" method="post">
                 <div class="row align-items-center">
                     <!-- <div class="floating-label col-6 input-group"> 
                         <label for="disabilities">Disabilities</label>
@@ -284,144 +378,80 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
                     <div class="col-4 formHeading"><h4 class="">Experience</h4></div>
                     <div class="col-7"> 
                         <!-- <label for="name1" class="col-12 ms-0 ps-0"></label>  -->
-                        <input class="inp col-12" type="text" id="name1" placeholder="Years of Experience" required>
+                        <input class="inp col-12" type="text" id="name1" name="exp" placeholder="Years of Experience">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Degrees</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="degrees">Search</label>
+                        <select class="choices" id="degrees" name="deg[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM degrees";
+                          $res=pg_query($query);
+                          while($disabilites_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $disabilites_row['name']; ?>"><?php echo $disabilites_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Specialisations</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="specialisations">Search</label>
+                        <select class="choices" id="specialisations" name="special[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM specialisations";
+                          $res=pg_query($query);
+                          while($disabilites_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $disabilites_row['name']; ?>"><?php echo $disabilites_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Other Qualifications</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="qual">Search</label>
+                        <select class="choices" id="qual" name="qual[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM other_qualifications";
+                          $res=pg_query($query);
+                          while($disabilites_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $disabilites_row['name']; ?>"><?php echo $disabilites_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
-                    <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
-                    <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
-                        </select> 
-                    </div>
-                    <div class="col-4">
-                        <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
-                    </div>
-                
-                    <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
-                    <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
-                        </select> 
-                    </div>
-                    <div class="col-4">
-                        <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
-                    </div>
-                
-                    <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    
                 </div>
-            </form>
+            
             
             
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" name="healthdata" class="btn btn-success">Submit</button>
+          <button type="submit" name="docdata" class="btn btn-success">Submit</button>
         </form>
         </div>
       </div>
@@ -674,6 +704,25 @@ $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
      });   
 });
 </script>
+<script>
+        function togglePrivateInfo() {
+            const privateInfo = document.querySelector(".private-info");
+            const privateInfo2 = document.querySelector(".private-info2");
+            const eye = document.querySelector(".fa-eye");
+            const eye2 = document.querySelector(".fa-eye-slash");
+            if (privateInfo.style.display === "none" || privateInfo.style.display === "") {
+                eye.style.display = "none"
+                eye2.style.display = "inline"
+                privateInfo.style.display = "block";
+                privateInfo2.style.display = "none";
+            } else {
+                eye.style.display = "inline"
+                eye2.style.display = "none"
+                privateInfo.style.display = "none";
+                privateInfo2.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
 <?php

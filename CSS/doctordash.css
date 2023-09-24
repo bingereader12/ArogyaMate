@@ -1,26 +1,26 @@
 @import url(variables.css);
-body{
-    background-color: rgb(228, 227, 227);
-    position: relative;
+body {
+  background-color: rgb(228, 227, 227);
+  position: relative;
 }
-.switch{
+.switch {
   position: absolute;
   top: 20px;
-  right:50px;
+  right: 50px;
 }
-.card{
-    position: absolute;
-    border-radius: 15px;
-    background-color: #fff;
-    width: 40%;
-    max-width: 90vw;
-    height: 45vw;
-    width: auto;
-    right: 15px;
-    left: 120px;
-    top: 90px;
-    padding: 1.5% 2%;
-    /* justify-content: space-evenly;
+.card {
+  position: absolute;
+  border-radius: 15px;
+  background-color: #fff;
+  width: 40%;
+  max-width: 90vw;
+  height: 45vw;
+  width: auto;
+  right: 15px;
+  left: 120px;
+  top: 90px;
+  padding: 1.5% 2%;
+  /* justify-content: space-evenly;
     flex-wrap: wrap; */
 }
 /* .row1{
@@ -28,253 +28,254 @@ body{
     justify-content:space-evenly;
     padding: 20px;
 } */
-.heading{
-    left: 150px;
-    position: absolute;
-    top:40px;
-    font-size: 3rem;
+.heading {
+  left: 150px;
+  position: absolute;
+  top: 40px;
+  font-size: 3rem;
 }
 .card1 .card2 .card3 {
-    width: 100%;
-    height: auto;
-    border-radius: 44px;
-    background: lightgrey;
-    background: rgb(180, 166, 166);
-    box-shadow: 2px 3px 3px #ba2f2f, 2px 3px 3px #ff4949;
+  width: 100%;
+  height: auto;
+  border-radius: 44px;
+  background: lightgrey;
+  background: rgb(180, 166, 166);
+  box-shadow: 2px 3px 3px #ba2f2f, 2px 3px 3px #ff4949;
 }
 .card1 {
-    /* margin-top: 20px; */
-    /* margin-left: 50px; */
-    /* width: 190px;
+  /* margin-top: 20px; */
+  /* margin-left: 50px; */
+  /* width: 190px;
     height: 190px; */
-    /* width: 500px; */
-    height: 300px;
-    border-radius: 44px;
-    background: lightgrey;
-    background: rgb(181, 176, 176);
-    box-shadow: 2px 3px 3px #565151,
-               2px 3px 3px #565151;
-  }
-  
-  .avatar {
-    width: 90px;
-    height: 90px;
-    display: inline-block;
-    background-color: rgba(255,255,255,0.9);
-    margin: 30px 15px 20px 25px;
-    border-radius: 14px;
-  }
-  .cta {
-    border: none;
-    background: none;
-    margin-left: 75%;
-    margin-top: 5%;
-  }
-  
-  .cta span {
-    padding-bottom: 7px;
-    letter-spacing: 4px;
-    font-size: 14px;
-    padding-right: 15px;
-    text-transform: uppercase;
-  }
-  
-  .cta svg {
-    transform: translateX(-8px);
-    transition: all 0.3s ease;
-  }
-  
-  .cta:hover svg {
-    transform: translateX(0);
-  }
-  
-  .cta:active svg {
-    transform: scale(0.9);
-  }
-  
-  .hover-underline-animation {
-    position: relative;
-    color: black;
-    padding-bottom: 20px;
-  }
-  
-  .hover-underline-animation:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #000000;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  .cta:hover .hover-underline-animation:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+  /* width: 500px; */
+  height: 300px;
+  border-radius: 44px;
+  background: lightgrey;
+  background: rgb(181, 176, 176);
+  box-shadow: 2px 3px 3px #565151, 2px 3px 3px #565151;
+}
 
-  .cta1 {
-    border: none;
-    background: none;
-    margin-left: 75%;
-    margin-top: 10%;/*adjust the margin according to calendar if needed*/
-  }
-  
-  .cta1 span {
-    padding-bottom: 7px;
-    letter-spacing: 4px;
-    font-size: 14px;
-    padding-right: 15px;
-    text-transform: uppercase;
-  }
-  
-  .cta1 svg {
-    transform: translateX(-8px);
-    transition: all 0.3s ease;
-  }
-  
-  .cta1:hover svg {
-    transform: translateX(0);
-  }
-  
-  .cta1:active svg {
-    transform: scale(0.9);
-  }
-  
-  .hover-underline-animation {
-    position: relative;
-    color: black;
-    padding-bottom: 20px;
-  }
-  
-  .hover-underline-animation:after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #000000;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-  
-  .cta1:hover .hover-underline-animation:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-  
-  .info {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 33px;
-    width: 85px;
-  }
-  
-  .info-1, .info-2 {
-    display: inline-block;
-    height: 20px;
-    width: 100%;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.9);
-  }
-  
-  .info-2 {
-    height: 11px;
-    width: 40%;
-    border-radius: 5px;
-  }
-  
-  .content-1 {
-    width: 80%;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.9);
-    height: 30px;
-    margin: auto;
-  }
-  
-  .content-2 {
-    width: 60%;
-    border-radius: 6px;
-    background: rgba(255,255,255,0.9);
-    height: 18px;
-    margin: 10px 0 0 20px;
-  }
+.avatar {
+  width: 90px;
+  height: 90px;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 30px 15px 20px 25px;
+  border-radius: 14px;
+}
+.cta {
+  border: none;
+  background: none;
+  margin-left: 75%;
+  margin-top: 5%;
+}
 
-  .card2 {
+.cta span {
+  padding-bottom: 7px;
+  letter-spacing: 4px;
+  font-size: 14px;
+  padding-right: 15px;
+  text-transform: uppercase;
+}
 
-    /* width: 500px; */
-    height: 300px;
-    background-color: #005555;
-    background-image: rgb(181, 176, 176);
-    border-radius: 8px;
-    color: white;
-    overflow: hidden;
-    position: relative;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-    cursor: pointer;
-  }
-  .card3 {
-    /* width: 500px; */
-    height: 250px;
-    background-color: #005555;
-    background-image: rgb(181, 176, 176);
-    border-radius: 8px;
-    color: white;
-    overflow: hidden;
-    position: relative;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
-    cursor: pointer;
-  }
-  .card-content {
-    padding: 10px;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    
-    flex-direction: column;
-    gap: 10px;
-    color: white;
-    /* align-items: center; */
-    /* justify-content: center; */
-    text-align: center;
-    height: 100%;
-  }
-  .card-content .card-title {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    font-size: 20px;
-    font-family: PoppinsBold;
-    color: inherit;
-    text-transform: uppercase;
-  }
-  .histcard{
-    margin: 0!important;
-    position: relative;
-    border-radius: 10px;
-    top:30px;
-    padding: 3% 0!important;
-    /* border: 1px solid #fff; */
-    text-align: left;
-    background-color: #005555;
-  }
-  .card-content .card-para {
-    color: inherit;
-    opacity: 0.8;
-    font-size: 14px;
-  }
-  
-  
-  /* .card2:hover {
+.cta svg {
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.cta:hover svg {
+  transform: translateX(0);
+}
+
+.cta:active svg {
+  transform: scale(0.9);
+}
+
+.hover-underline-animation {
+  position: relative;
+  color: black;
+  padding-bottom: 20px;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.cta1 {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: none;
+  background: none;
+  padding-left: 50%;
+  /* margin-top: 10%; adjust the margin according to calendar if needed */
+}
+
+.cta1 span {
+  padding-bottom: 7px;
+  letter-spacing: 4px;
+  font-size: 14px;
+  padding-right: 15px;
+  text-transform: uppercase;
+}
+
+.cta1 svg {
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.cta1:hover svg {
+  transform: translateX(0);
+}
+
+.cta1:active svg {
+  transform: scale(0.9);
+}
+
+.hover-underline-animation {
+  position: relative;
+  color: black;
+  padding-bottom: 20px;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.cta1:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.info {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 33px;
+  width: 85px;
+}
+
+.info-1,
+.info-2 {
+  display: inline-block;
+  height: 20px;
+  width: 100%;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.info-2 {
+  height: 11px;
+  width: 40%;
+  border-radius: 5px;
+}
+
+.content-1 {
+  width: 80%;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  height: 30px;
+  margin: auto;
+}
+
+.content-2 {
+  width: 60%;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  height: 18px;
+  margin: 10px 0 0 20px;
+}
+
+.card2 {
+  /* width: 500px; */
+  height: 300px;
+  background-color: #005555;
+  background-image: rgb(181, 176, 176);
+  border-radius: 8px;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+.card3 {
+  /* width: 500px; */
+  height: 250px;
+  background-color: #005555;
+  background-image: rgb(181, 176, 176);
+  border-radius: 8px;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+}
+.card-content {
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+  /* align-items: center; */
+  /* justify-content: center; */
+  text-align: center;
+  height: 100%;
+}
+.card-content .card-title {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  font-size: 20px;
+  font-family: PoppinsBold;
+  color: inherit;
+  text-transform: uppercase;
+}
+.histcard {
+  margin: 0 !important;
+  position: relative;
+  border-radius: 10px;
+  top: 30px;
+  padding: 3% 0 !important;
+  /* border: 1px solid #fff; */
+  text-align: left;
+  background-color: #005555;
+}
+.card-content .card-para {
+  color: inherit;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* .card2:hover {
     transform: rotateY(10deg) rotateX(10deg) scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
@@ -311,64 +312,63 @@ body{
     transform: translateX(100%);
   }
    */
-   .addrecords {
-    border: 2px solid #026c6c;
-    background-color: #026c6c;
-    border-radius: 0.9em;
-    padding: 0.8em 1.2em 0.8em 1em;
-    transition: all ease-in-out 0.2s;
-    font-size: 16px;
-    position: fixed;
-    bottom: 20px; 
-    right: 20px; 
-    z-index: 5;
-    box-shadow: 0px 4px 6px rgba(43, 43, 43, 0.1); 
-   }
-   
-   .addrecords span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: 600;
-   }
-   
-   .addrecords:hover {
-    background-color: #4ab539;
-    border-color: #4ab539;
-   }
+.addrecords {
+  border: 2px solid #026c6c;
+  background-color: #026c6c;
+  border-radius: 0.9em;
+  padding: 0.8em 1.2em 0.8em 1em;
+  transition: all ease-in-out 0.2s;
+  font-size: 16px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 5;
+  box-shadow: 0px 4px 6px rgba(43, 43, 43, 0.1);
+}
 
+.addrecords span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+}
 
-   .photo{
-    /* position: absolute; */
-    left: 20px;
-    top: 20px;
-    z-index: 5;
+.addrecords:hover {
+  background-color: #4ab539;
+  border-color: #4ab539;
 }
-.photo img{
-    width: calc(40px + 6vw);
-    height: calc(40px + 6vw);
+
+.photo {
+  /* position: absolute; */
+  left: 20px;
+  top: 20px;
+  z-index: 5;
 }
-   .card1{
-    padding-top: 20px;
-    padding-left: 10px;
-    margin-right: 10px;
-   }
-   .card1 .name{
-    /* position: absolute; */
-    /* left: 160px; */
-    /* top:12px; */
-    font-size: calc(12px + 1.2vw);
-    font-family: PoppinsBold;
+.photo img {
+  width: calc(40px + 6vw);
+  height: calc(40px + 6vw);
 }
-.card1 > .data{
-    /* position: absolute; */
-    left: 160px;
-    top: 70px;
+.card1 {
+  padding-top: 20px;
+  padding-left: 10px;
+  margin-right: 10px;
 }
-.data > .leftText{
+.card1 .name {
+  /* position: absolute; */
+  /* left: 160px; */
+  /* top:12px; */
+  font-size: calc(12px + 1.2vw);
+  font-family: PoppinsBold;
+}
+.card1 > .data {
+  /* position: absolute; */
+  left: 160px;
+  top: 70px;
+}
+.data > .leftText {
   font-size: calc(13px + 0.5vw);
 }
-.data > .rightText{
+.data > .rightText {
   font-size: calc(13px + 0.5vw);
 }

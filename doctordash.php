@@ -8,6 +8,16 @@
     include('./connection.php');
     include('./encryptnew.php');
     include('./decryptnew.php');
+    $pid = $_SESSION['id'];
+    $query = "SELECT * FROM signup WHERE id = '$pid'";
+    $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
+    $row = pg_fetch_assoc(pg_query($query));
+    $fname = $row['fname'];
+    $mname = $row['mname'];
+    $lname = $row['lname'];
+    $gender = $row['gender'];
+    $bld_grp = $row['blood_grp'];
+    $bdate = $row['dob'];
     $validate_otp = 0;
     if(isset($_POST['switchuser']))
     {
@@ -108,18 +118,18 @@
                         <img src="./Assets/profileimg.png" alt="Profile" class="profileimg">
                     </div>
                     <span class="col-9 row">
-                        <span class="name col-12">Praneel Tejpal Bora</span>
+                        <span class="name col-12"><?php echo $fname.' '.    $mname.' '.$lname?></span>
                         <span class="data col-12 row">
-                        <span class="leftText col-5">PID: </span>      <span class="rightText col-7"><b>192512351231</b></span><br>
-                        <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b>Male</b></span><br>
-                        <span class="leftText col-5">Date of birth: </span>      <span class="rightText col-7"><b>19</b></span><br>
-                        <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b>O-ve</b></span>
+                        <span class="leftText col-5">PID: <span><i class="fa-solid fa-eye" id="eye" onclick="togglePrivateInfo()"></i><i style="display:none;" class="fa-solid fa-eye-slash" id="eye" onclick="togglePrivateInfo()"></i></span></span> <span class="rightText col-7"><b class="private-info" style="display:none;"><?php echo $dec_pid?></b><b class="private-info2" style="display:block;">XXXXXXXXXXXXXX</b></span><br>
+                        <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b><?php echo $gender?></b></span><br>
+                        <span class="leftText col-5">Date of birth: </span>      <span class="rightText col-7"><b><?php echo $bdate?></b></span><br>
+                        <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b><?php echo $bld_grp?></b></span>
                     
                     </span>
 
                     </span>
                     
-                        <a href="profile.html">
+                        <a href="doctorprofile.php">
                         <button class="cta">
                             <span class="hover-underline-animation"> View</span>
                             <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
@@ -132,44 +142,61 @@
             
             <div class="col-lg-6 col-md-6 p-2">
                 <div class="card2">
-                    <div class="card-content row">
-                        <p class="card-title">Treatment History</p>
+                    <div class="card-content row" style="position: relative;">
+                        <p class="card-title">Patient History</p>
                         <div class="col-12 row gx-2" style="position: relative;">
-                            <div class="col" style="padding: 0 1%;">
+                        <?php
+                            $query="SELECT * FROM past_medical_history WHERE doc_id = '$dec_pid'";
+                            $res=pg_query($query);
+                            if(pg_num_rows($res)==0){
+                                ?>
+                                    <div class="col" style="padding: 0 1%;">
                                 <div class="histcard row">
-                                    <span class="col-5">Patient: </span><span class=" col-7">Praneel Bora </span>
-                                    <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Reason: </span><span class=" col-7">Constipation and headache and cold </span>
-                                    <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Visit: </span><span class=" col-7">17/8/23 </span>
-                                    <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Treatment: </span><span class=" col-7">Medicines and Exercise </span>
-                                    
+                                    <h5>No Previous Treatments!</h5>
                                 </div>
                             </div>
+                                <?php
+                                // echo "No previous results";
+                            } else {
+                                $i=0;
+                            while($row1=pg_fetch_assoc($res)){
+                                if($i <2){
 
-                            
-                            <span style=" width: 2px;margin: 0;padding: 0; background-color: #fff; border-radius: 5px; height: 80%; position: absolute; left: 50%; top:50%;transform: translate(-50%,-30%);"></span>
-                            <div class="col" style="padding: 0 1%;">
+                                
+                                ?>
+                                <div class="col" style="padding: 0 1%;">
+                                    
                                 <div class="histcard row">
-                                    <span class="col-5">Patient: </span><span class=" col-7">Jagjit Singh Bhumra </span>
+                                    <span class="col-5">Patient: </span><span class=" col-7"><?php  echo $row1['patient'] ?></span>
                                     <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Reason: </span><span class=" col-7">Constipation and headache and cold </span>
+                                    <span class="col-5">Purpose: </span><span class=" col-7"><?php echo $row1['purpose'] ?></span>
                                     <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Visit: </span><span class=" col-7">17/8/23 </span>
+                                    <span class="col-5">Visit: </span><span class=" col-7"><?php echo $row1['ap_date'] ?></span>
                                     <hr style="margin: 0.3rem; color: var(--green);">
-                                    <span class="col-5">Treatment: </span><span class=" col-7">Medicines and Exercise </span>
+                                    <span class="col-5">Treatment: </span><span class=" col-7"><?php echo $row1['treatment'] ?></span>
                                     
                                 </div>
                             </div>
-                            
-                        </div><button class="cta1">
+                                <?php
+                                $i+=1;
+                                if($i==1){
+                                    ?>
+                                        <span style=" width: 2px;margin: 0;padding: 0; background-color: #fff; border-radius: 5px; height: 80%; position: absolute; left: 50%; top:50%;transform: translate(-50%,-30%);"></span>
+                                    <?php
+                                }
+                            }}
+                        }
+                        ?>      
+                                              
+                        </div><a href="doctortreatmenthistory.php">
+                            <button class="cta1">
                             <span class="hover-underline-animation"> View</span>
                             <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
                                 <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
                             </svg>
                         </button>
-                    </div>
+                        </a>
+                        </div>
                 </div>
             </div>
             
@@ -326,6 +353,25 @@
 
     </div>
 </body>
+<script>
+        function togglePrivateInfo() {
+            const privateInfo = document.querySelector(".private-info");
+            const privateInfo2 = document.querySelector(".private-info2");
+            const eye = document.querySelector(".fa-eye");
+            const eye2 = document.querySelector(".fa-eye-slash");
+            if (privateInfo.style.display === "none" || privateInfo.style.display === "") {
+                eye.style.display = "none"
+                eye2.style.display = "inline"
+                privateInfo.style.display = "block";
+                privateInfo2.style.display = "none";
+            } else {
+                eye.style.display = "inline"
+                eye2.style.display = "none"
+                privateInfo.style.display = "none";
+                privateInfo2.style.display = "block";
+            }
+        }
+    </script>
   <?php 
         if($validate_otp == 1){
             echo "<script> let myModal = new bootstrap.Modal(document.getElementById('historyEditModal'), {});

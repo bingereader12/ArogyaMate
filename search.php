@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('connection.php');
 ?>
 <!DOCTYPE html>
@@ -31,16 +32,21 @@ include('connection.php');
     <div class="container1 container">
         <div class="row">
                 <?php
+                    // $other_doctors="SELECT doc_id FROM doc_data";
                     $doctor_fetch = "SELECT * FROM signup WHERE doctor_reg IS NOT NULL";
                     if(isset($_POST['search'])){
                         $searchVal=$_POST['search'];
+                        $other_doctors="SELECT id,fname,mname,lname,dob,gender,aadhar_no,mobile_no,password,doctor_reg,blood_grp FROM doc_data as d,signup WHERE d.deg LIKE '%$searchVal%' OR d.special LIKE '%$searchVal%' OR d.qual LIKE '%$searchVal%' OR CAST(d.exp  as VARCHAR(12)) LIKE '%$searchVal%'";
+
                         $doctor_fetch = $doctor_fetch." AND (fname LIKE '%$searchVal%' OR mname LIKE '%$searchVal%' OR lname LIKE '%$searchVal%' OR CAST(mobile_no  as VARCHAR(12)) LIKE '%$searchVal%' OR CAST(doctor_reg  as VARCHAR(20)) LIKE '%$searchVal%') ";
+
+                        $doctor_fetch = $doctor_fetch." UNION ".$other_doctors;
                     }
                     // echo $doctor_fetch;
                     $result_fetch = pg_query($doctor_fetch);
                     while($row=pg_fetch_assoc($result_fetch)){
                         ?>
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-6 mb-5 col-sm-12">
                 <div class="container gx-3">
                     <div class="row">
                         <div class="col-lg-11 col-12">

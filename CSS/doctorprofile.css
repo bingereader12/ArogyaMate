@@ -117,7 +117,7 @@ body{
     color: #959595;
 }
 .choices__inner{
-    height: 44px;
+    /* height: 44px; */
 }
 .choices__list--multiple .choices__item{
     background-color: var(--green);
@@ -128,5 +128,5 @@ body{
     border: 1px solid #ddd;
     padding: 7.5px 7.5px 3.75px;
     font-size: 14px;
-    height: 44px;
+    height: 47px;
 }

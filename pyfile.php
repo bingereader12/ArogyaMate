@@ -71,7 +71,7 @@
                 include('connection.php');
 
                 $out = strval(trim($output));
-                $sql = "SELECT * FROM disease WHERE disease LIKE '%$out%'";
+                $sql = "SELECT info FROM disease WHERE disease LIKE '%$out%'";
                 $res = pg_query($conn , $sql);
                 $rows = pg_num_rows($res);
 

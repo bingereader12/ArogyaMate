@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="CSS/chatbot.css">
+  </head>
+  <body>
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <div style="height:800px;width:100%;background-color:#82c6c6;">
+                   <div style="padding-top:30px;">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png" style="border-radius:50%;width:40px;height:40px;margin:10px;"/>
+                        </div>
+                        <div class="col-md-10">
+                            <h6 style="color:black;margin-top:20px;margin-left:20px;">Welcome Dear Customer</h6>
+                        </div>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><a href="communities.php">Community</a></li>
+                            <li><a href="login.php">Login</a></li>
+                        </ul>
+                    </div>
+                   </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="chatbotbox" style="padding:20px;">
+                    <div id="bot1">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <p style="background-color:#82c6c6;padding:10px;border-radius:20px;">Hey there ! How may I help you today.</p>
+                            </div>
+                            <div class="col-md-1">
+                                <img src="https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png" style="border-radius:50%;width:40px;height:40px;"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="user1">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png" style="border-radius:50%;width:40px;height:40px;margin:10px;"/>
+                            </div>
+                            <div class="col-md-11">
+                                <p id="answer" class="user1ans1" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Keep me updated with the latest news.</p>
+                                <p id="answer" class="user1ans2" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Show me a cat.</p>
+                                <p id="answer" class="user1ans3" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Can i study about disorders?</p>
+                                <p id="answer" class="user1ans4" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">What are the ongoing health schemes?</p>
+                                <p id="answer" class="user1ans5" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Emergency situational contacts.</p>
+                                <p id="answer" class="user1ans6" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Recent advancements in medical area.</p>
+                                <p id="answer" class="user1ans7" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Generate a PID for me.</p>
+                                <p id="answer" class="user1ans8" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">What is ArogyaMate?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <center><img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" id="loader1" style="width:100px;height:100px;"/></center>
+                    <br><br>
+                    <div id="bot2">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <p style="background-color:#82c6c6;padding:10px;border-radius:20px;">So you want to be kept posted? Please provide your email id below.</p>
+                            </div>
+                            <div class="col-md-1">
+                                <img src="https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png" style="border-radius:50%;width:40px;height:40px;"/>
+                            </div>
+                        </div>
+                    </div>
+                  <div id="user2">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png" style="border-radius:50%;width:40px;height:40px;margin:10px;"/>
+                        </div>
+                        <div class="col-md-11">
+                            <form method="post">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div id="textwrap">
+                                            <input type="text" placeholder="enter email id" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="button" id="btnsub" value="Submit" class="btn btn-info" style="border-radius:20px;background-color:#7D3C98;border:none;color:white;"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+                  <center><img src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" id="loader2" style="width:100px;height:100px;"/></center>
+                  <br><br>
+                    <div id="bot3">
+                        <div class="row">
+                            <div class="col-md-11">
+                                <p style="background-color:#82c6c6;padding:10px;border-radius:20px;">You will be receiving all the latest news now via mail!</p>
+                            </div>
+                            <div class="col-md-1">
+                                <img src="https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png" style="border-radius:50%;width:40px;height:40px;"/>
+                            </div>
+                        </div>
+                    </div>
+                   <div id="user3">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png" style="border-radius:50%;width:40px;height:40px;margin:10px;"/>
+                        </div>
+                        <div class="col-md-11">
+                            <p id="answer" class="thankyou" style="margin:10px;float:left;background-color:white;padding:10px;border-radius:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Thank You</p>
+                        </div>
+                    </div>
+                   </div><br><br>
+                   <!-- <div id="bot2" style="display:none;">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <p style="background-color:#82c6c6;padding:10px;border-radius:20px;">
+                                Sure, here's a cute cat for you:
+                            </p>
+                            <img src="https://placekitten.com/400/300" alt="Cat Image" style="max-width: 100%;">
+                        </div>
+                        <div class="col-md-1">
+                            <img src="https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png" style="border-radius:50%;width:40px;height:40px;"/>
+                        </div>
+                    </div> -->
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>

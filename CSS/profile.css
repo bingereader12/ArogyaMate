@@ -86,6 +86,9 @@ body {
 .header {
   font-size: 1.8vw;
 }
+.emerge > .header{
+  font-size: 1.5vw!important;
+}
 .rel {
   font-size: 50%;
 }

@@ -53,7 +53,7 @@
               <th scope="col">Appointment Date</th>
               <th scope="col">Doctor Name</th>
               <th scope="col">Doctor ID</th>
-              <th scope="col">Purpose</th>
+              <th scope="col">Reason of Visit</th>
               <th scope="col">Disease / Injury</th>
               <th scope="col">Medicines Prescribed</th>
               <th scope="col">Treatment</th>

@@ -1,4 +1,35 @@
 <?php 
+
+// if(isset($_SESSION['loggedin']))
+//     {
+//       if($_SESSION['loggedin']==true)
+//       {
+//         if($_SESSION['role']=='patient')
+//         {
+//           header("Location:dash.php");
+
+
+//         }
+//         else
+//         {
+//           if($_SESSION['curr']=='doctor')
+//           {
+//             header("Location:doctordash.php");
+//           }
+//           else
+//           {
+//             header("Location:dash.php");
+//           }
+//         }
+//       }
+//       else
+//       {
+//         header("Location:logout.php");
+
+
+//       }
+//     }
+
     session_start();
     include('./connection.php');
 
@@ -40,8 +71,6 @@
         }
     }
 
-    pg_close($conn);
-  
 
 ?>
 
@@ -164,5 +193,5 @@
   </body>
 </html>
 <?php
-    pg_close();
+    pg_close($conn);
 ?>

@@ -1,0 +1,40 @@
+#textwrap{
+    border-bottom:1px solid #005555;
+}
+input[type=text]{
+    border:none;
+}
+input:focus{
+    outline:0px !important;
+    -webkit-appearance:none;
+    box-shadow: none !important;
+}
+#answer:hover{
+    cursor:pointer;
+}
+ul{
+    position:absolute;
+    left:-20px;
+    top:100px;
+    width:300px;
+}
+ul li{
+    list-style: none;
+    padding:20px 10px;
+    border-bottom:1px solid white;
+    color:white;
+}   
+ul li:hover{
+    cursor:pointer;
+    background-color:#005555;
+}
+
+#user2,#user3{
+    display:none;
+}
+#bot2,#bot3{
+    display:none;
+}
+#loader1,#loader2{
+    display:none;
+}
