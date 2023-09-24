@@ -8,17 +8,30 @@
         $password = $_POST['password'];
 
         $sql = "SELECT * FROM signup WHERE mobile_no = '$phone_no'";
-        $res = pg_query($conn , $sql);
+        $res = pg_query($sql);
         $rows = pg_num_rows($res);
 
         if ($rows == 1) {
             $row = pg_fetch_assoc($res);
             if(password_verify($password,$row['password'])){
+                $pid=$row['id'];
                 $_SESSION['user'] = $phone_no;
-              
+                $result=pg_query("SELECT * FROM signup where id='$pid'");
+                $fetch=pg_fetch_assoc($result);
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['loggedin']=true;
+                if($fetch['doctor_reg']>0)
+                {
+                  $_SESSION['role']='doctor';
+                  $_SESSION['curr']='doctor';
+                  header("Location:./doctordash.php");
+                }
+              else{
+                $_SESSION['role']='patient';
+
                 header("Location:./dash.php");
+              } 
+                
             }else{
             echo "<script>alert('Password doesnt match');</script>";
             }
@@ -150,3 +163,6 @@
     </script>
   </body>
 </html>
+<?php
+    pg_close();
+?>

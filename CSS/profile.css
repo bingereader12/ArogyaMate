@@ -30,10 +30,13 @@ body {
   flex-wrap: wrap;
 }
 .head {
-  left: 350px;
   position: absolute;
-  top: 45px;
-  font-size: calc(16px + 1.5vw);
+    left: 100px;
+    width: calc(100% - 100px);
+    text-align: center;
+    top:40px;
+    font-size: calc(16px + 1.5vw);
+    font-family: PoppinsBold;
 }
 .photo {
   position: absolute;

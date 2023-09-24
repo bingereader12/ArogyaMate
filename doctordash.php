@@ -1,10 +1,28 @@
 <?php 
     session_start();
+    if($_SESSION['role']=='patient')
+    {
+        header("Location:dash.php");
+    }
     include('./auth.php');
     include('./connection.php');
     include('./encryptnew.php');
     include('./decryptnew.php');
     $validate_otp = 0;
+    if(isset($_POST['switchuser']))
+    {
+        if($_SESSION['curr']=='doctor')
+        {
+            $_SESSION['curr']='patient';
+            header("Location:dash.php");
+        }
+        else
+        {
+            $_SESSION['curr']='doctor';
+            header("Location:doctordash.php");
+        }
+    }
+
     if(isset($_POST['otpSubmit'])){
         $pid = $_POST['pid'];
         $otp = $_POST['otp'];
@@ -63,14 +81,24 @@
     <link rel="stylesheet" href="./CSS/doctordash.css">
 </head>
 <body>
-    <Button><a href="login.php">Login</a></Button>
-    <Button><a href="signup.php">Signup</a></Button>
-    <Button><a href="dash.php">Dash</a></Button>
-    <Button><a href="doctordash.php">DoctorDash</a></Button>
-    <Button><a href="doctorprofile.php">DoctorProfile</a></Button>
-    <Button><a href="profile.php">Profile</a></Button>
+    
     <?php include('./components/sidebar.php') ?>
-
+    <?php if($_SESSION['role']=='doctor'){?>
+        <form action="" method="post" class="switch" style="float:right; margin-right:50px;margin-top:20px;">
+    <a><Button type="submit" name="switchuser" class="btn btn-outline-success ">
+        <?php 
+            if($_SESSION['curr']=='doctor')
+            {
+                echo "Personal View";
+            }
+            else 
+            {
+                echo "Doctor View";
+            }
+        ?>
+    </Button></a>
+    </form>
+    <?php }?>
     <h1 class="heading">Dashboard</h1>
     <div class="card container">
         <div class="row gy-2 gx-3">
@@ -308,3 +336,6 @@
 ?>
 </html>
 
+<?php
+// pg_close();
+?>

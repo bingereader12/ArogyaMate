@@ -1,6 +1,12 @@
 @import url(variables.css);
 body{
     background-color: rgb(228, 227, 227);
+    position: relative;
+}
+.switch{
+  position: absolute;
+  top: 20px;
+  right:50px;
 }
 .card{
     position: absolute;
@@ -24,8 +30,8 @@ body{
     padding: 20px;
 } */
 .heading{
-    left: 150px;
     position: absolute;
+    left: 150px;
     top:40px;
     font-size: 3rem;
 }

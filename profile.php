@@ -49,7 +49,7 @@
         }
       }
 
-    if(isset($_POST['name2']) && isset($_POST['relation2']) && isset($_POST['contact2']) && $_POST['contact4']!=''){
+    if(isset($_POST['name2']) && isset($_POST['relation2']) && isset($_POST['contact2']) && $_POST['contact2']!=''){
       $name2 = $_POST['name2'];
       $relation2 = $_POST['relation2'];
       $contact2 = $_POST['contact2'];
@@ -60,7 +60,7 @@
       }
     }
 
-    if(isset($_POST['name3']) && isset($_POST['relation3']) && isset($_POST['contact3']) && $_POST['contact4']!=''){
+    if(isset($_POST['name3']) && isset($_POST['relation3']) && isset($_POST['contact3']) && $_POST['contact3']!=''){
       $name3 = $_POST['name3'];
       $relation3 = $_POST['relation3'];
       $contact3 = $_POST['contact3']; 
@@ -103,11 +103,17 @@
       $coverage_type = $_POST['coverage_type'];
     }
 
-    $query = "INSERT INTO insurance_details (insurance_present, date_issue, date_expiry, company, coverage_type, policy_number, pid) VALUES ('$insurancePresent', '$date_issue','$date_expiry', '$company', '$coverage_type',  '$policy_number',  '$pid')";
+   if($insurancePresent == false){
+          $query = "INSERT INTO insurance_details (insurance_present, pid) VALUES ('$insurancePresent', '$pid')";
+    }else{
+      $query = "INSERT INTO insurance_details (insurance_present, date_issue, date_expiry, company, coverage_type, policy_number, pid) VALUES ('$insurancePresent', '$date_issue','$date_expiry', '$company', '$coverage_type',  '$policy_number',  '$pid')";
+    }
     
     $res = pg_query($query);
     if(!$res){
       echo 'Failed to Add Insurance Details';
+    } else {
+      header('Location:./dash.php');
     }
 
     
@@ -306,13 +312,13 @@
         <img src="./Assets/profileimg.png" alt="Profile" class="profileimg">
     </div>
     <div class="container1 container gx-3">
+
         <div class="row">
             <div class="col-lg-7 col-12">
 
                 <div class="card1 row gx-3">
-                    
                         <span class="name"><?php echo $row['fname']." ".$row['mname']." ".$row['lname'] ?></span>
-                        <span class="leftText col-4">PID: </span><span class="rightText col-8"><b><?php echo decrypt($pid,$cipher,$key,$ivlen,$iv)?></b></span>
+                        <span class="leftText col-4">PID: <i class="fa-solid fa-eye" id="eye" onclick="togglePrivateInfo()"></i><i style="display:none;" class="fa-solid fa-eye-slash" id="eye" onclick="togglePrivateInfo()"></i> </span><span class="rightText col-8"><b class="private-info" style="display:none;"><?php echo decrypt($pid,$cipher,$key,$ivlen,$iv)?></b><b class="private-info2" style="display:block;">XXXXXXXXXXXXXX</b></span>
                         <span class="leftText col-4">Gender: </span><span class="rightText col-8"><b><?php echo $row['gender']?></b></span>
                         <span class="leftText col-4">Date of birth: </span><span class="rightText col-8"><b><?php 
                         // $dateOfBirth = $row['dob'];
@@ -987,6 +993,25 @@
      });   
 });
 </script>
+<script>
+        function togglePrivateInfo() {
+            const privateInfo = document.querySelector(".private-info");
+            const privateInfo2 = document.querySelector(".private-info2");
+            const eye = document.querySelector(".fa-eye");
+            const eye2 = document.querySelector(".fa-eye-slash");
+            if (privateInfo.style.display === "none" || privateInfo.style.display === "") {
+                eye.style.display = "none"
+                eye2.style.display = "inline"
+                privateInfo.style.display = "block";
+                privateInfo2.style.display = "none";
+            } else {
+                eye.style.display = "inline"
+                eye2.style.display = "none"
+                privateInfo.style.display = "none";
+                privateInfo2.style.display = "block";
+            }
+        }
+    </script>
 </body>
 <?php pg_close(); ?>
 </html>

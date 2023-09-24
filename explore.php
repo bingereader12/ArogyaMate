@@ -29,7 +29,7 @@
             </a>
 
             <!-- Government Schemes Option -->
-            <a class="option-button" href="">
+            <a class="option-button" href="schemes.php">
                 <div class="option">
                     <h2>Government Schemes</h2>
                     <p>

@@ -1,6 +1,12 @@
 @import url(variables.css);
 body{
     background-color: rgb(228, 227, 227);
+    position: relative;
+}
+.switch{
+  position: absolute;
+  top: 20px;
+  right:50px;
 }
 .card{
     position: absolute;

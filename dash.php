@@ -14,6 +14,19 @@
     $gender = $row['gender'];
     $bld_grp = $row['blood_grp'];
     $bdate = $row['dob'];
+    if(isset($_POST['switchuser']))
+    {
+        if($_SESSION['curr']=='doctor')
+        {
+            $_SESSION['curr']='patient';
+            header("Location:dash.php");
+        }
+        else
+        {
+            $_SESSION['curr']='doctor';
+            header("Location:doctordash.php");
+        }
+    }
 ?>
 
 
@@ -27,6 +40,7 @@
     <title>Dash</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="./CSS/dash.css">
 </head>
 <body>
@@ -38,18 +52,38 @@
     <Button><a href="profile.php">Profile</a></Button> -->
 
     <?php include('./components/sidebar.php') ?>
+    <?php if($_SESSION['role']=='doctor'){?>
+        <form action="" method="post" class="switch" style="float:right; margin-right:50px;margin-top:20px;">
+    <a><Button type="submit" name="switchuser" class="btn btn-outline-success ">
+        <?php 
+            if($_SESSION['curr']=='doctor')
+            {
+                echo "Personal View";
+            }
+            else 
+            {
+                echo "Doctor View";
+            }
+        ?>
+    </Button></a>
+    </form>
+    <?php }?>
+    
     <h1 class="heading">Dashboard</h1>
     <div class="card container">
         <div class="row gy-2 gx-3">
             <div class="col-lg-6 col-md-12 p-2">
-                <div class="card1 row">
+                
+                <div class="card1 row" style="position:relative;">
+                <div style="position:absolute; right: 10px; top:10px; text-align: right;"></div>
+        
                     <div class="photo col-3">
                         <img src="./Assets/profileimg.png" alt="Profile" class="profileimg">
                     </div>
                     <span class="col-9 row">
                         <span class="name col-12"><?php echo $fname.' '.$mname.' '.$lname?></span>
                         <span class="data col-12 row">
-                        <span class="leftText col-5">PID: </span>      <span class="rightText col-7"><b><?php echo $dec_pid?></b></span><br>
+                        <span class="leftText col-5">PID: <span><i class="fa-solid fa-eye" id="eye" onclick="togglePrivateInfo()"></i><i style="display:none;" class="fa-solid fa-eye-slash" id="eye" onclick="togglePrivateInfo()"></i></span> </span>      <span class="rightText col-7"><b class="private-info" style="display:none;"><?php echo $dec_pid?></b><b class="private-info2" style="display:block;">XXXXXXXXXXXXXX</b></span><br>
                         <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b><?php echo $gender?></b></span><br>
                         <span class="leftText col-5">Age: </span>      <span class="rightText col-7"><b><?php echo $bdate?></b></span><br>
                         <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b><?php echo $bld_grp?></b></span>
@@ -272,6 +306,25 @@
                 
         
     </div>
+    <script>
+        function togglePrivateInfo() {
+            const privateInfo = document.querySelector(".private-info");
+            const privateInfo2 = document.querySelector(".private-info2");
+            const eye = document.querySelector(".fa-eye");
+            const eye2 = document.querySelector(".fa-eye-slash");
+            if (privateInfo.style.display === "none" || privateInfo.style.display === "") {
+                eye.style.display = "none"
+                eye2.style.display = "inline"
+                privateInfo.style.display = "block";
+                privateInfo2.style.display = "none";
+            } else {
+                eye.style.display = "inline"
+                eye2.style.display = "none"
+                privateInfo.style.display = "none";
+                privateInfo2.style.display = "block";
+            }
+        }
+    </script>
     <!-- <script>
         function generateOTP() {
             document.getElementById("generatedOTP").textContent = "";
@@ -283,4 +336,6 @@
         }
     </script> --></body>
 </html>
-
+<?php
+    pg_close();
+?>

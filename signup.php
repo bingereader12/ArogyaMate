@@ -38,11 +38,16 @@
         if(!$exists){
                $password = password_hash($password, PASSWORD_DEFAULT);
                $demoquery = pg_num_rows(pg_query("SELECT * FROM signup"));
-               $pid = encrypt( 10000000000000+$demoquery ,$cipher,$key,$ivlen,$iv);
+               $pid = encrypt( 10000000000001+$demoquery ,$cipher,$key,$ivlen,$iv);
                $aadhar_no = encrypt($aadhar_no,$cipher,$key,$ivlen,$iv);
                echo $pid;
                echo $aadhar_no;
-               $query = "INSERT INTO signup(id,fname, mname, lname, dob, gender, aadhar_no, mobile_no, password) VALUES ('$pid','$fname', '$mname', '$lname', '$bdate', '$gender', '$aadhar_no', $phone_no, '$password')";
+               if($doc_reg==-1){
+                $query = "INSERT INTO signup(id,fname, mname, lname, dob, gender, aadhar_no, mobile_no, password) VALUES ('$pid','$fname', '$mname', '$lname', '$bdate', '$gender', '$aadhar_no', $phone_no, '$password')";
+            }
+            else
+            $query = "INSERT INTO signup(id,fname, mname, lname, dob, gender, aadhar_no, mobile_no, doctor_reg, password) VALUES ('$pid','$fname', '$mname', '$lname', '$bdate', '$gender', '$aadhar_no', $phone_no,$doc_reg, '$password')";
+
                
                $res = pg_query($query);
                if(!$res){
@@ -59,6 +64,7 @@
         $phone_no = $_POST['phone_no'];
         $choose  = $_POST['choose'];
         $isDoctor = ($choose == "provider");
+        
     }
     pg_close($conn);
 ?>
