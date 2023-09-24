@@ -1,6 +1,7 @@
 <?php
   session_start();
   include('./connection.php');
+  include('./auth.php');
   include('decryptnew.php');
   $phone_no = $_SESSION['user'];
   $query = "SELECT * FROM signup WHERE mobile_no = '$phone_no'";    
@@ -102,7 +103,7 @@
       $coverage_type = $_POST['coverage_type'];
     }
 
-    $query = "INSERT INTO insurance_details (insurance_present, date_issue, date_expiry, company, coverage_type, policy_number, pid) VALUES ('$insurancePresent', '$date_issue','$date_expiry', '$company', '$coverage_type',  $policy_number,  $pid)";
+    $query = "INSERT INTO insurance_details (insurance_present, date_issue, date_expiry, company, coverage_type, policy_number, pid) VALUES ('$insurancePresent', '$date_issue','$date_expiry', '$company', '$coverage_type',  '$policy_number',  '$pid')";
     
     $res = pg_query($query);
     if(!$res){
@@ -127,9 +128,10 @@
     }
     
     if(pg_num_rows(pg_query("SELECT * FROM emergency_instruct where pid='$pid'"))==0)
-    $query = "INSERT INTO emergency_instruct (pid, resuscitate, organ_donor, blood_transfusion, anaesthetics) VALUES ($pid, '$resusitate','$organDonor', '$bloodTransfusion', '$anesthetic')";
+    $query = "INSERT INTO emergency_instruct (pid, resuscitate, organ_donor, blood_transfusion, anaesthetics) VALUES ('$pid', '$resusitate','$organDonor', '$bloodTransfusion', '$anesthetic')";
     else
-    $query = "UPDATE emergency_instruct SET resuscitate='$resusitate', organ_donor='$organDonor',blood_transfusion='$bloodTransfusion',anaesthetics='$anesthetic' WHERE pid=$pid";
+    $query = "UPDATE emergency_instruct SET resuscitate='$resusitate', organ_donor='$organDonor',blood_transfusion='$bloodTransfusion',anaesthetics='$anesthetic' WHERE pid='$pid'";
+    
     $res = pg_query($query);
     if(!$res){
       echo 'Failed to Add Insurance Details';
@@ -147,6 +149,124 @@
     }
     else
       header("Location:profile.php");
+  }
+
+  if(isset($_POST['healthdata'])){
+    // echo "Done<br>";
+    if(isset($_POST['diseases'])){
+      $selectedOptions = $_POST['diseases'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['diseases']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET diseases='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,diseases) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['disabilities'])){
+      $selectedOptions = $_POST['disabilities'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['disabilities']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET disabilities='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,disabilities) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['allergies'])){
+      $selectedOptions = $_POST['allergies'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['allergies']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET allergies='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,allergies) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['vaccines'])){
+      $selectedOptions = $_POST['vaccines'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['vaccines']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET vaccines='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,vaccines) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['surgeries'])){
+      $selectedOptions = $_POST['surgeries'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['surgeries']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET surgeries='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,surgeries) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
+    if(isset($_POST['medicines'])){
+      $selectedOptions = $_POST['medicines'];
+      $query="SELECT * FROM health_data WHERE pid='$pid'";
+      $res=pg_query($query);
+      if (($selectedOptions!=null) && pg_num_rows($res)>0) {
+        while($health_row=pg_fetch_assoc($res)){
+          $array=array_filter(explode(',',$health_row['medicines']));
+        }
+        $newarr=array_unique(array_merge($array,$selectedOptions));
+        $option=implode(',',$newarr);  
+        $query="UPDATE health_data SET medicines='$option' WHERE pid='$pid'";
+        $res=pg_query($query);
+        // echo $option . '<br>';
+      } elseif (($selectedOptions!=null)) {
+        $option=implode(',',$selectedOptions); 
+        $query="INSERT INTO health_data(pid,medicines) VALUES ('$pid','$option')";
+        $res=pg_query($query);
+      }
+    }
   }
 ?>
 
@@ -175,12 +295,12 @@
 <body>
     <?php 
     
-    include('./components/sidebar.php')
+    include('./components/sidebar.php');
     ?>
-    <!-- <Button><a href="login.html">Login</a></Button>
-    <Button><a href="signup.html">Signup</a></Button>
-    <Button><a href="dash.html">Dash</a></Button>
-    <Button><a href="profile.html">Profile</a></Button> -->
+    <!-- <Button><a href="login.php">Login</a></Button>
+    <Button><a href="signup.php">Signup</a></Button>
+    <Button><a href="dash.php">Dash</a></Button>
+    <Button><a href="profile.php">Profile</a></Button> -->
     <h1 class="head">Profile Page</h1>
     <div class="photo">
         <img src="./Assets/profileimg.png" alt="Profile" class="profileimg">
@@ -194,10 +314,18 @@
                         <span class="name"><?php echo $row['fname']." ".$row['mname']." ".$row['lname'] ?></span>
                         <span class="leftText col-4">PID: </span><span class="rightText col-8"><b><?php echo decrypt($pid,$cipher,$key,$ivlen,$iv)?></b></span>
                         <span class="leftText col-4">Gender: </span><span class="rightText col-8"><b><?php echo $row['gender']?></b></span>
-                        <span class="leftText col-4">Age: </span><span class="rightText col-8"><b><?php echo $row['dob']?></b></span>
-                        <span class="leftText col-4">Blood Grp: </span><span class="rightText col-8"><b><?php if( $row['blood_grp']==NULL) echo "None"; else echo $row['blood_grp']?></b> <a class="btn" data-bs-toggle="modal" data-bs-target="#bloodGroup"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <span class="leftText col-4">Date of birth: </span><span class="rightText col-8"><b><?php 
+                        // $dateOfBirth = $row['dob'];
+                        // $today = date("Y-m-d");
+                        // $diff = date_diff(date_create($dateOfBirth), date_create($today));
+                        // echo $diff->format('%y');
+                        
+                        echo $row['dob']
+                        
+                        ?></b></span>
+                        <span class="leftText col-4">Blood Grp: </span><span class="rightText col-8"><b><?php if( $row['blood_grp']==NULL) { echo "None"; ?><a class="btn" data-bs-toggle="modal" data-bs-target="#bloodGroup"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                          </svg></a></span>
+                          </svg></a> <?php } else echo $row['blood_grp']?></b> </span>
 
                 </div>
             </div>
@@ -215,21 +343,38 @@
                             $contact_row = pg_fetch_assoc($res);
                             if(pg_num_rows($res)>0)
                             {
-
+                              if($contact_row['contact_no']!=-1)
+                              {
                               ?>
+                            
 <span class="leftText col-8"><?php echo $contact_row['name'] ?><span class="rel"><?php echo $contact_row['relation'] ?></span> </span><a href="tel:7447425397" class="btn rightText col-4"><b><?php echo $contact_row['contact_no'] ?></b> <?php if($contact_row['contact_no']){?><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16"><?php } ?>
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
+<?php }
+ if($contact_row['contact_no2']!=-1)
+ {
+ ?>
+
 <span class="leftText col-8"><?php echo $contact_row['name2'] ?><span class="rel"><?php echo $contact_row['relation2'] ?></span> </span><a href="tel:7447425397" class="btn rightText col-4"><b><?php echo $contact_row['contact_no2'] ?></b> <?php if($contact_row['contact_no2']){?><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16"><?php } ?>
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
+<?php }
+ if($contact_row['contact_no3']!=-1)
+ {
+ ?>
 <span class="leftText col-8"><?php echo $contact_row['name3'] ?><span class="rel"><?php echo $contact_row['relation3'] ?></span> </span><a href="tel:7447425397" class="btn rightText col-4"><b><?php echo $contact_row['contact_no3'] ?></b> <?php if($contact_row['contact_no3']){?><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16"><?php } ?>
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
+<?php }
+ if($contact_row['contact_no4']!=-1)
+ {
+ ?>
 <span class="leftText col-8"><?php echo $contact_row['name4'] ?><span class="rel"><?php echo $contact_row['relation4'] ?></span> </span><a href="tel:7447425397" class="btn rightText col-4"><b><?php echo $contact_row['contact_no4'] ?></b> <?php if($contact_row['contact_no4']){?><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16"><?php } ?>
   <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
 </svg></a>
+<?php }
 
+ ?>
 
 <?php
                             }
@@ -243,14 +388,29 @@
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                           </svg></a></span> 
                         <hr>
-                        <span class="leftText col-4">Disabilities: </span> <span class="rightText col-8"><b><span class="badge rounded-pill bg-dark">Partially Impaired vision | <form action="" style="margin:0; padding: 0; display: inline;"><a href="" class="btn" style="text-decoration: none; padding: 0; margin: 0; color: #f00;">X</a></form></span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Allergies: </span>    <span class="rightText col-8"><b><span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span> <span class="badge rounded-pill bg-success">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Illness: </span>      <span class="rightText col-8"><b><span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span> <span class="badge rounded-pill bg-dark">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Vaccines: </span>     <span class="rightText col-8"><b><span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span> <span class="badge rounded-pill bg-primary">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Surgeries: </span>    <span class="rightText col-8"><b><span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Medications: </span>  <span class="rightText col-8"><b><span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span></b></span>
-                        <span class="leftText col-4">Birthmarks: </span>   <span class="rightText col-8"><b><span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span> <span class="badge rounded-pill bg-danger">Partially Impaired vision</span></b></span>
-                        </div>
+                        <?php 
+                        $healthquery="SELECT * FROM health_data WHERE pid='$pid'";
+                        $healthres=pg_query($healthquery);
+                        while($health_row=pg_fetch_assoc($healthres)){
+                          $diseases=explode(',',$health_row['diseases']);
+                          $disabilities=explode(',',$health_row['disabilities']);
+                          $allergies=explode(',',$health_row['allergies']);
+                          $vaccines=explode(',',$health_row['vaccines']);
+                          $surgeries=explode(',',$health_row['surgeries']);
+                          $medicines=explode(',',$health_row['medicines']);
+                        // }
+                        ?>
+                        <span class="leftText col-4 py-2">Diseases: </span> <span class="rightText col-8 py-2"><b><?php foreach($diseases as $disease){?><span class="badge rounded-pill bg-dark"><?php echo $disease; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Disabilities: </span>    <span class="rightText col-8 py-2"><b><?php foreach($disabilities as $disability){?><span class="badge rounded-pill bg-dark"><?php echo $disability; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Allergies: </span>      <span class="rightText col-8 py-2"><b><?php foreach($allergies as $allergy){?><span class="badge rounded-pill bg-dark"><?php echo $allergy; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Vaccines: </span>     <span class="rightText col-8 py-2"><b><?php foreach($vaccines as $vaccine){?><span class="badge rounded-pill bg-dark"><?php echo $vaccine; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Surgeries: </span>    <span class="rightText col-8 py-2"><b><?php foreach($surgeries as $surgery){?><span class="badge rounded-pill bg-dark"><?php echo $surgery; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Medications: </span>  <span class="rightText col-8 py-2"><b><?php foreach($medicines as $medicine){?><span class="badge rounded-pill bg-dark"><?php echo $medicine; ?></span> <?php } ?> </b></span>
+                        <span class="leftText col-4 py-2">Birthmarks: </span>   <span class="rightText col-8 py-2">Left Forearm mark, Black mark on left knee</span>
+                          <?php
+                        }
+                        ?>
+                      </div>
             </div>
             <div class="col-4">
                 <div class="row">
@@ -267,9 +427,9 @@
                     </div>
                     <br>
                     <div class="card4 col-12 row">
-                        <span class="header col-12">Insurance Details <a class="btn" data-bs-toggle="modal" data-bs-target="#insurance"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <span class="header col-12">Insurance Details <?php if(pg_num_rows($res3)==0) { ?><a class="btn" data-bs-toggle="modal" data-bs-target="#insurance"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                          </svg></a></span>
+                          </svg></a><?php } ?></span>
                         <hr>
                         <span class="col-7">Insurance Present?</span> <span class="col-5"><?php if(pg_num_rows($res3)==1) { if($insu['insurance_present'] ==NULL) echo "---"; else { if($insu['insurance_present']==false) echo "No"; else echo "Yes"; }} else echo "---";?></span>
                         <span class="col-7">Date of Issue  </span>    <span class="col-5"><?php if(pg_num_rows($res3)==1) { if($insu['date_issue'] ==NULL) echo "---";else echo $insu['date_issue'];} else echo "---"?></span> 
@@ -317,164 +477,140 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="">
+            <form action="" method="post">
                 <div class="row align-items-center">
                     <!-- <div class="floating-label col-6 input-group"> 
                         <label for="disabilities">Disabilities</label>
                         <select class="choices form-control" id="disabilities" placeholder="" multiple> -->
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Diseases</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="diseases">Search</label>
+                        <select class="choices" id="diseases" name="diseases[]" placeholder="Search" multiple>
+                          <?php 
+                          $query="SELECT * FROM diseases_data";
+                          $res=pg_query($query);
+                          while($diseases_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $diseases_row['disease_name']; ?>"><?php echo $diseases_row['disease_name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
                     <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
                     <div class="col-5"> 
                         <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <select class="choices" id="disabilities" name="disabilities[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM disabilities";
+                          $res=pg_query($query);
+                          while($disabilites_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $disabilites_row['name']; ?>"><?php echo $disabilites_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Allergies</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="allergies">Search</label>
+                        <select class="choices" id="allergies" name="allergies[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM allergies";
+                          $res=pg_query($query);
+                          while($allergies_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $allergies_row['name']; ?>"><?php echo $allergies_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Vaccines</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="vaccines">Search</label>
+                        <select class="choices" id="vaccines" name="vaccines[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM vaccines";
+                          $res=pg_query($query);
+                          while($vaccines_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $vaccines_row['name']; ?>"><?php echo $vaccines_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Surgeries</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="surgeries">Search</label>
+                        <select class="choices" id="surgeries" name="surgeries[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM surgeries";
+                          $res=pg_query($query);
+                          while($surgeries_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $surgeries_row['surgery_name']; ?>"><?php echo $surgeries_row['surgery_name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
-                    <div class="col-3 formHeading"><h4 class="">Disabilities</h4></div>
+                    <div class="col-3 formHeading"><h4 class="">Medicines</h4></div>
                     <div class="col-5"> 
-                        <label for="disabilities">Search</label>
-                        <select class="choices" id="disabilities" placeholder="Search" multiple>
-                            <option value="HTML">HTML</option>
-                            <option value="Jquery">Jquery</option>
-                            <option value="CSS">CSS</option>
-                            <option value="Bootstrap 3">Bootstrap 3</option>
-                            <option value="Bootstrap 4">Bootstrap 4</option>
-                            <option value="Java">Java</option>
-                            <option value="Javascript">Javascript</option>
-                            <option value="Angular">Angular</option>
-                            <option value="Python">Python</option>
-                            <option value="Hybris">Hybris</option>
-                            <option value="SQL">SQL</option>
-                            <option value="NOSQL">NOSQL</option>
-                            <option value="NodeJS">NodeJS</option>
+                        <label for="medicines">Search</label>
+                        <select class="choices" id="medicines" name="medicines[]" placeholder="Search" multiple>
+                        <?php 
+                          $query="SELECT * FROM medicines";
+                          $res=pg_query($query);
+                          while($medicines_row=pg_fetch_assoc($res)){
+                            ?>
+                            <option value="<?php echo $medicines_row['name']; ?>"><?php echo $medicines_row['name'] ?></option>
+                            <?php
+                          }
+                           ?>
                         </select> 
                     </div>
                     <div class="col-4">
                         <label for="name1" class="col-12 ms-0 ps-0">Other</label> 
-                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input" required>
+                        <input class="inp col-12" type="text" id="name1" placeholder="Custom Input">
                     </div>
                 
                     <hr class="mt-4" style="width:96%; margin-left: 2%;">
                     
                 </div>
-            </form>
+            <!-- </form> -->
             
             
         </div>
@@ -641,7 +777,7 @@
                         <select class="form-select" id="floatingSelect"  name="relation2" aria-label="Floating label select example">
                           <option selected hidden disabled>---</option>
                            <option value="Fam">Family</option>
-                          <option value="Frnd">>Friend</option>
+                          <option value="Frnd">Friend</option>
                           <option value="Doc">Doctor</option>
                         </select>
                         <label for="floatingSelect" class="ms-3">Relation</label>

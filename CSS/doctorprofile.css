@@ -1,0 +1,132 @@
+@import url(variables.css);
+*{
+    /* font-family: Poppins; */
+}
+/* hr{
+    margin-left: 4%;
+    margin-right: 4%;
+    width: 92%;
+} */
+body{
+    background-color: rgb(228, 227, 227);
+}
+
+.container1{
+    position: absolute;
+    border-radius: 15px;
+    background-color: #fff;
+    /* width: 90vw; */
+    height: auto;
+    width: auto;
+    right: 15px;
+    margin-bottom: 30px;
+    /* bottom: 30px; */
+    left: 120px;
+    top: 90px;
+    /* display: flex; */
+    /* justify-content: center; */
+    padding: 1.5% 2%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.head{
+    /* left: 320px; */
+    position: absolute;
+    left: 100px;
+    width: calc(100% - 100px);
+    text-align: center;
+    top:40px;
+    font-size: calc(16px + 1.5vw);
+    font-family: PoppinsBold;
+}
+.photo{
+    position: absolute;
+    left: 150px;
+    top: 20px;
+    z-index: 5;
+}
+.photo img{
+    width: calc(120px + 3vw);
+    height: calc(120px + 3vw);
+}
+.card1{
+    display: flex;
+    height: 240px;
+    /* border: 1px solid; */
+    padding: 10px 20px;
+    margin: 10px 10px;
+    /* min-width: 500px; */
+
+}
+.card1{
+    height: 240px;
+}
+.card1 > .name{
+    position: relative;
+    left: 130px;
+    font-size: 2.2vw;
+    font-family: PoppinsBold;
+}
+/* .card1 img{
+    padding: 0;
+} */
+.card2 > .leftText{
+    font-size: calc(11px + 0.6vw);
+}
+.card2 > .rightText{
+    font-size: calc(11px + 0.3vw);
+    text-decoration: none;
+    color: var(--font);
+}
+
+
+.card2{
+    height: 240px;
+    /* border: 1px solid; */
+    padding: 10px 20px;
+    margin: 10px 10px;
+}
+.header{
+    font-size: 1.8vw;
+}
+.rel{
+    font-size: 50%;
+}
+.card3{
+    position: relative;
+    /* border: 1px solid; */
+    margin: 5px 5px;
+}
+.card3 > .leftText{
+    font-size: calc(16px + 0.6vw);
+}
+.card3 > .rightText{
+    font-size: calc(16px + 0.3vw);
+}
+.card4{
+    position: relative;
+    /* border: 1px solid; */
+    margin: 5px 5px;
+
+}
+.updated{
+    position: relative;
+    bottom: 0;
+    text-align: right;
+    margin-top: 5px;
+    color: #959595;
+}
+.choices__inner{
+    height: 44px;
+}
+.choices__list--multiple .choices__item{
+    background-color: var(--green);
+    border-color: var(--green);
+}
+.inp{
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 7.5px 7.5px 3.75px;
+    font-size: 14px;
+    height: 44px;
+}

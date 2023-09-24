@@ -15,9 +15,10 @@
             $row = pg_fetch_assoc($res);
             if(password_verify($password,$row['password'])){
                 $_SESSION['user'] = $phone_no;
+              
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['loggedin']=true;
-                header("Location:./profile.php");
+                header("Location:./dash.php");
             }else{
             echo "<script>alert('Password doesnt match');</script>";
             }

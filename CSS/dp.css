@@ -1,0 +1,538 @@
+/*necessary css*/
+@import url(variables.css);
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* header */
+
+.navContainer {
+    height: 60px;
+    background-color: #ffffff;
+}
+
+.navlogo {
+    width: 15%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 0px 20px;
+    /* align-items: center; */
+}
+
+
+.logoimg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.navlinks {
+    width: 65%;
+    background-color: #ffffff;
+}
+
+.navItems {
+    list-style: none;
+    height: 60px;
+    margin-top: 40px;
+    justify-content: space-between;
+    padding: 0px 60px 0px 60px;
+    line-height: 60px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color:#000000;
+}
+
+.link:hover{
+    color: #005555;
+}
+
+.navlogin {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+button {
+    width: 7em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    margin-top: 7px;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #ffffff,
+        -6px -6px 12px #e3dbe5;
+}
+
+button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #005555 0%, #c2c2da 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+}
+
+button:hover::before {
+    width: 9em;
+}
+
+.loginbutton:hover::before {
+    width: 9em;
+}
+
+/* footer */
+footer {
+    bottom: 0;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .talk{
+    color: #005555;
+    margin-top: 10px;
+}
+  .footerContainer{
+      justify-content:space-between;
+      gap: 70px;
+  }
+  
+  .LogoAndText{
+      width: 25%;
+      flex-direction: column;
+  }
+  
+  .logo .logotext{
+      padding: 20px;
+  }
+  
+  .AboutInfo{
+      width: 100%;
+      justify-content: space-between;
+      padding: 10px 150px 10px 90px;
+      color: #005555;
+  }
+  
+  .list{
+      list-style: none;
+  }
+  
+  .gg{
+      text-decoration: none;
+  }
+  
+  .alink{
+      text-decoration: none;
+      color: #000000;
+  
+  }
+  
+  .alink:hover{
+      color: #78bbbb;
+      text-decoration: underline;
+  }
+  
+  .logoimgfooter{
+      width: 100px;
+  }
+  
+  /* sub-footer */
+  hr{
+      height: -10px;
+      background-color: #000000;
+      margin-top: 1px;
+  }
+  
+  .sub-footer{
+      height: 50px;
+      bottom: 0;
+      width: 100%;
+  }
+  
+  .icons{
+      padding-top: 20px;
+      padding-bottom: 25px;
+      width: 100%;
+      justify-content: space-between;
+      text-align: center;
+      padding-left: 35%;
+      font-size:x-large;
+      padding-inline: 500px;
+  }
+  
+  .gg{
+      color: #000000;
+      text-decoration: none;
+  }
+  .gg:hover{
+      color: #78bbbb;
+  }
+
+/*main page*/
+/* Style for the main container */
+.options-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    margin-top: 175px;
+    margin-bottom: 180px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Style for each option button */
+.option-button {
+    text-decoration: none;
+    background-color: #005555;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: block;
+    width: 30%;
+    text-align: center;
+}
+
+/* Hover effect */
+.option-button:hover {
+    background-color: #78bbbb;
+    transform: translateY(-2px);
+}
+
+/* Style for option headings */
+.option h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Style for option descriptions */
+.option p {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+/*main page*/
+.mainContainer {
+    background-color: #ffffff;
+    padding: 100px 200px 0px 200px;
+    margin-top: -10px;
+}
+
+.WelcomeContainer {
+    height: 150px;
+    justify-content: space-evenly;
+}
+
+.container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: -15px;
+}
+
+.slider-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 20px;
+    -webkit-appearance: none;
+    background: #005555;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #005555;
+    border: 1px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#selectedAge {
+    font-weight: bold;
+}
+
+
+/* Container for the form
+.containers {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for each question */
+.question {
+    margin-bottom: 20px;
+}
+
+/* Style for radio options */
+.radio-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Adjusted style for radio inputs and labels */
+.radio-options label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #005555; /* Change the color here */
+}
+
+.radio-options input[type="radio"] {
+    margin-right: 5px;
+    appearance: none; /* Remove default radio button appearance */
+    width: 16px;
+    height: 16px;
+    border: 2px solid #005555; /* Border color for the radio button */
+    border-radius: 50%; /* Make it round */
+    outline: none; /* Remove the outline */
+}
+
+.radio-options input[type="radio"]:checked {
+    background-color: #005555; /* Background color when selected */
+}
+
+.radio-options input[type="radio"]:checked::before {
+    content: "\f00c"; /* Checkmark symbol (FontAwesome) */
+    font-family: FontAwesome;
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff; /* Color of the checkmark when selected */
+}
+
+label {
+    display: block;
+    font-weight: 500;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+} */
+
+.pagecontainer{
+    display: flex;
+    align-items: center;
+    gap: 300px;
+    margin-right: 700px;
+}
+
+.containers {
+    margin: 190px auto;
+    padding: 50px;
+    border-radius: 15px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1500px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 35px;
+    font-weight: 1000;
+    text-align: center;
+    margin-top: 25px;
+    color: white;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.flex-container h6 {
+    flex: 1;
+    font-size: 14px;
+    padding-block: 10px;
+}
+
+.flex-container input,
+.flex-container select {
+    flex: 1;
+    border: 2px solid #e7e8e8;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(112, 127, 140);
+    border-radius: 5px;
+}
+
+.flex-container select {
+    cursor: pointer;
+}
+
+.flex-container input:hover {
+    border-color: #005555;
+    border-width: 2px;
+}
+
+.flex-container input::placeholder {
+    color: #224e4e;
+}
+
+.flex-container select:hover {
+    border-color: #005555;
+    border-width: 2px;
+}
+
+.flex-container select::placeholder {
+    color: #828686;
+}
+
+/* Style for the heading */
+h1 {
+    text-align: center; /* Center align the heading */
+    font-size: 36px; /* Adjust the font size as needed */
+    margin-top: 150px;
+    margin-bottom: 30px; /* Add some space below the heading */
+    color: #005555; /* Adjust the text color */
+}
+
+/* Adjust the margin for the containers to center-align the form */
+.containers {
+    margin: 0 auto; /* Center align the form horizontally */
+    margin-top: 50px;
+    padding: 50px;
+    /* Rest of your CSS styles for .containers */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Center the submit button */
+.submit-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adjust the margin as needed */
+}
+
+/* Increase the size of the submit button */
+.larger-button {
+    font-size: 22px; /* Adjust the font size as needed */
+    padding: 20px 40px; /* Adjust the padding as needed */
+}
+
+/* Increase the shadow effect of the submit button */
+.submit-button-container .button1 {
+    box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.3); /* Adjust the shadow values as needed */
+}
+
+/* Keep the original shadow effect for the login button */
+.navlogin button.button1 {
+    box-shadow: 6px 6px 12px #ffffff, -6px -6px 12px #e3dbe5;
+}
+
+/* Style for the text areas */
+.information textarea {
+    width: 100%; /* Make the textarea take up the full width of its container */
+    padding: 10px; /* Add some padding for better appearance */
+    border: 0.5px solid #005555; /* Add a border to the textarea */
+    border-radius: 5px; /* Round the corners of the textarea */
+    font-size: 16px; /* Adjust the font size as needed */
+    resize: vertical; /* Allow vertical resizing of the textarea */
+}
+
+/* Style for the text inside the text areas */
+.information textarea::placeholder {
+    color: #828686; /* Adjust the placeholder text color */
+}
+
+/* Remove purple color and underline from anchor tags */
+.submit-button-container a {
+    color: inherit; /* Use the default text color */
+    text-decoration: none; /* Remove the underline */
+}

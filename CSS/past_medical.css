@@ -1,0 +1,111 @@
+@import url(variables.css);
+:root {
+  --light-green2: rgba(18, 168, 168, 0.3);
+  --light-green: rgba(228, 227, 227, 0.5);
+  --bg: rgb(228, 227, 227);
+}
+body {
+  background-color: var(--bg);
+}
+th,
+td,
+tr,
+h4 {
+  text-align: center;
+}
+.card-head {
+  font-size: smaller;
+  font-weight: 700;
+}
+.card-content {
+  font-weight: bolder;
+}
+.card {
+  cursor: pointer;
+  /* box-shadow: rgba(0, 71, 21, 0.638) 0px 2px 4px 0px, rgba(0, 71, 21, 0.655) 0px 2px 16px 0px; */
+}
+#reportlink {
+  transition: all 0.2s linear;
+}
+.buttontext {
+  transition: all 1s linear;
+}
+.buttontext1 {
+  transition: all 1s linear;
+  display: none;
+}
+.table-card {
+  width: 1800x;
+  /* width:auto; */
+  overflow-x: scroll;
+}
+table {
+  border-collapse: separate !important;
+  border-spacing: 7.5px !important;
+  width: 100%;
+  /* display: flex;
+    flex-direction: column; */
+}
+thead {
+  font-size: 1.25rem;
+}
+tbody {
+  font-size: 1.1rem;
+}
+td,
+th {
+  /* border: 0.25rem solid white; */
+  padding: 0.6rem;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.lname {
+  white-space: normal;
+}
+.btn {
+  border-width: 10px;
+}
+tbody > tr:nth-child(even) > td {
+  background-color: var(--light-green2);
+}
+tbody > tr:nth-child(odd) > td {
+  background-color: var(--light-green);
+}
+button.nav-link {
+  color: rgba(255, 52, 52, 0.759);
+  font-weight: bold;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+button.nav-link:hover {
+  color: red;
+}
+
+.container1 {
+  position: absolute;
+  border-radius: 15px;
+  background-color: #fff;
+  /* width: 90vw; */
+  height: auto;
+  width: auto;
+  right: 15px;
+  margin-bottom: 30px;
+  /* bottom: 30px; */
+  left: 120px;
+  top: 90px;
+  /* display: flex; */
+  /* justify-content: center; */
+  padding: 1.5% 2%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.head {
+  /* left: 320px; */
+  position: absolute;
+  left: 100px;
+  width: calc(100% - 100px);
+  text-align: center;
+  top: 40px;
+  font-size: calc(16px + 1.5vw);
+  font-family: PoppinsBold;
+}

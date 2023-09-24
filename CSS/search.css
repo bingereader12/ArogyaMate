@@ -1,0 +1,49 @@
+@import url(variables.css);
+body{
+    background-color: rgb(228, 227, 227);
+    font-family: Poppins;
+}
+
+.container1{
+    position: absolute;
+    border-radius: 15px;
+    background-color: #fff;
+    /* height: auto; */
+    /* width: auto; */
+    right: 15px;
+    margin-bottom: 30px;
+    left: 120px;
+    top: 90px;
+    padding: 1.5% 2%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.head{
+    /* position: absolute; */
+    left: 100px;
+    /* width: calc(100% - 140px); */
+    /* text-align: center; */
+    /* top:20px; */
+    font-size: calc(16px + 1.5vw);
+    font-family: PoppinsBold;
+    /* margin-top: 14px; */
+}
+.card1{
+    border:1px solid;
+    padding: 1% 1%;
+    border-radius: 14px;
+    /* margin: 2% 2%; */
+}
+img{
+    width: 100px;
+}
+.header{
+    font-size: calc(14px + 0.5vw);
+}
+.updated{
+    position: relative;
+    bottom: 0;
+    text-align: right;
+    margin-top: 5px;
+    color: #959595;
+}

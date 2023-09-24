@@ -1,7 +1,19 @@
 <?php
-
     session_start();
-    include('./connection.php')
+    include('./connection.php');
+    include('./auth.php');
+    include('./decryptnew.php');
+
+    $pid = $_SESSION['id'];
+    $query = "SELECT * FROM signup WHERE id = '$pid'";
+    $dec_pid = decrypt($pid,$cipher,$key,$ivlen,$iv);
+    $row = pg_fetch_assoc(pg_query($query));
+    $fname = $row['fname'];
+    $mname = $row['mname'];
+    $lname = $row['lname'];
+    $gender = $row['gender'];
+    $bld_grp = $row['blood_grp'];
+    $bdate = $row['dob'];
 ?>
 
 
@@ -18,13 +30,14 @@
     <link rel="stylesheet" href="./CSS/dash.css">
 </head>
 <body>
-    <Button><a href="login.html">Login</a></Button>
-    <Button><a href="signup.html">Signup</a></Button>
-    <Button><a href="dash.html">Dash</a></Button>
-    <Button><a href="doctordash.html">DoctorDash</a></Button>
-    <Button><a href="doctorprofile.html">DoctorProfile</a></Button>
-    <Button><a href="profile.html">Profile</a></Button>
+    <!-- <Button><a href="login.php">Login</a></Button>
+    <Button><a href="signup.php">Signup</a></Button>
+    <Button><a href="dash.php">Dash</a></Button>
+    <Button><a href="doctordash.php">DoctorDash</a></Button>
+    <Button><a href="doctorprofile.php">DoctorProfile</a></Button>
+    <Button><a href="profile.php">Profile</a></Button> -->
 
+    <?php include('./components/sidebar.php') ?>
     <h1 class="heading">Dashboard</h1>
     <div class="card container">
         <div class="row gy-2 gx-3">
@@ -34,18 +47,18 @@
                         <img src="./Assets/profileimg.png" alt="Profile" class="profileimg">
                     </div>
                     <span class="col-9 row">
-                        <span class="name col-12">Praneel Tejpal Bora</span>
+                        <span class="name col-12"><?php echo $fname.' '.$mname.' '.$lname?></span>
                         <span class="data col-12 row">
-                        <span class="leftText col-5">PID: </span>      <span class="rightText col-7"><b>192512351231</b></span><br>
-                        <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b>Male</b></span><br>
-                        <span class="leftText col-5">Age: </span>      <span class="rightText col-7"><b>19</b></span><br>
-                        <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b>O-ve</b></span>
+                        <span class="leftText col-5">PID: </span>      <span class="rightText col-7"><b><?php echo $dec_pid?></b></span><br>
+                        <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b><?php echo $gender?></b></span><br>
+                        <span class="leftText col-5">Age: </span>      <span class="rightText col-7"><b><?php echo $bdate?></b></span><br>
+                        <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b><?php echo $bld_grp?></b></span>
                     
                     </span>
 
                     </span>
                     
-                        <a href="profile.html">
+                        <a href="profile.php">
                         <button class="cta">
                             <span class="hover-underline-animation"> View</span>
                             <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
@@ -111,7 +124,7 @@
                         </div>
                         <!-- <p class="card-para">Treated for diseasename</p> -->
                         <!-- <p class="card-para">Suffered diseasename</p> -->
-                        <a href="past_medical.html">
+                        <a href="past_medical.php">
                             <button class="cta1">
                                 <span class="hover-underline-animation"> View</span>
                                 <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
@@ -140,7 +153,7 @@
                             <span class="col-4">Illness: </span><span class=" col-8">Partially Impaired vision</span>
                             
                         </div>
-                        <a href="profile.html">
+                        <a href="profile.php">
                         <button class="cta1">
                             <span class="hover-underline-animation"> View</span>
                             <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
@@ -168,16 +181,21 @@
                     <p class="card-title">Emergency contacts</p>
                     <div class="col-6" style="padding-top: 40px;">
                         <div class=" contactcard row gx-3">
-                                    <span class="leftText col-6">Devesh Jain: <span class="rel">(Fam)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <?php 
+                                $pid = $_SESSION['id'];
+                                $query  = "SELECT * FROM emergency_contacts WHERE pid = '$pid'";
+                                $row = pg_fetch_assoc(pg_query($query));
+                            ?>
+                                    <span class="leftText col-6"><?php echo $row['name']?> <span class="rel">(<?php echo $row['relation']?>)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b><?php echo $row['contact_no']?></b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
         </svg></a>
-                                <span class="leftText col-6">Hiral Patel: <span class="rel">(Fam)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <span class="leftText col-6"><?php echo$row['name2']?><span class="rel">(<?php echo$row['relation2']?>)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b><?php echo$row['contact_no2']?></b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
         </svg></a>
-                                <span class="leftText col-6">Dhruv Dedhia: <span class="rel">(Fri)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <span class="leftText col-6"><?php echo$row['name3']?><span class="rel">(<?php echo$row['relation3']?>)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b><?php echo$row['contact_no3']?></b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
         </svg></a>
-                                <span class="leftText col-6">Aryan Shirsa: <span class="rel">(Doc)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b>7447425397</b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <span class="leftText col-6"><?php echo$row['name4']?><span class="rel">(<?php echo$row['relation4']?>)</span> </span><a href="tel:7447425397" class="btn rightText col-5"><b><?php echo $row['contact_no4']?></b> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" class="bi bi-telephone-fill" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
         </svg></a>
                         </div>

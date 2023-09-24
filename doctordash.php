@@ -1,12 +1,26 @@
 <?php 
     session_start();
+    include('./auth.php');
     include('./connection.php');
     include('./encryptnew.php');
+    include('./decryptnew.php');
     $validate_otp = 0;
     if(isset($_POST['otpSubmit'])){
         $pid = $_POST['pid'];
         $otp = $_POST['otp'];
         $enc_pid = encrypt($pid,$cipher,$key,$ivlen,$iv);
+
+        $pat_query = "SELECT * FROM signup WHERE id = '$enc_pid'";
+        $row = pg_fetch_assoc(pg_query($pat_query));
+        $pat_fname =  $row['fname'];
+        $pat_lname =  $row['lname'];
+
+        $doc_id = $_SESSION['id'];
+        $doc_query = "SELECT * FROM signup WHERE id = '$doc_id'";
+        $row = pg_fetch_assoc(pg_query($doc_query));
+        $doc_fname =  $row['fname'];
+        $doc_lname =  $row['lname'];
+        $doc_id = decrypt($doc_id,$cipher,$key,$ivlen,$iv);
 
         $query = "SELECT * FROM otp_verification WHERE patient_id = '$enc_pid' AND otp =$otp";
         $res = pg_query($query);
@@ -16,7 +30,24 @@
             pg_query($query2);
 
         }
+
     }
+
+    if(isset($_POST['historyModalSubmit'])){
+            $doctorName = $_POST['doctorName'];
+            $doctorPid = $_POST['doctorPid'];
+            $patientName = $_POST['patientName'];
+            $patientPid = $_POST['patientPid'];
+            $purpose = $_POST['purpose'];
+            $diagnose = $_POST['diagnose'];
+            $medicine = $_POST['medicine'];
+            $treatment = $_POST['treatment'];
+
+            $query = "INSERT INTO past_medical_history (ap_date, doctor, doc_id, purpose, patient, pid, diagnose, medicines, treatment) VALUES (CURRENT_DATE, '$doctorName','$doctorPid', '$purpose', '$patientName', '$patientPid', '$diagnose', '$medicine', '$treatment')";
+            pg_query($query);
+            header("Location: ");
+            // exit();
+        }
 
 ?>
 
@@ -32,12 +63,13 @@
     <link rel="stylesheet" href="./CSS/doctordash.css">
 </head>
 <body>
-    <Button><a href="login.html">Login</a></Button>
-    <Button><a href="signup.html">Signup</a></Button>
-    <Button><a href="dash.html">Dash</a></Button>
-    <Button><a href="doctordash.html">DoctorDash</a></Button>
-    <Button><a href="doctorprofile.html">DoctorProfile</a></Button>
-    <Button><a href="profile.html">Profile</a></Button>
+    <Button><a href="login.php">Login</a></Button>
+    <Button><a href="signup.php">Signup</a></Button>
+    <Button><a href="dash.php">Dash</a></Button>
+    <Button><a href="doctordash.php">DoctorDash</a></Button>
+    <Button><a href="doctorprofile.php">DoctorProfile</a></Button>
+    <Button><a href="profile.php">Profile</a></Button>
+    <?php include('./components/sidebar.php') ?>
 
     <h1 class="heading">Dashboard</h1>
     <div class="card container">
@@ -52,7 +84,7 @@
                         <span class="data col-12 row">
                         <span class="leftText col-5">PID: </span>      <span class="rightText col-7"><b>192512351231</b></span><br>
                         <span class="leftText col-5">Gender: </span>   <span class="rightText col-7"><b>Male</b></span><br>
-                        <span class="leftText col-5">Age: </span>      <span class="rightText col-7"><b>19</b></span><br>
+                        <span class="leftText col-5">Date of birth: </span>      <span class="rightText col-7"><b>19</b></span><br>
                         <span class="leftText col-5">Blood Grp: </span><span class="rightText col-7"><b>O-ve</b></span>
                     
                     </span>
@@ -205,26 +237,28 @@
                         <div class="col-5 formHeading"><h5>Doctor Name:</h5></div>
                         <div class="col-7"> 
                             <!-- <label for="name1" class="col-12 ms-0 ps-0"></label>  -->
-                            <input class="col-12 form-control" type="text" id="doctorname" name="doctorName" placeholder="John Wick" value="" hidden required>
-                            <input class="col-12 form-control" type="text" placeholder="John Wick" value="" disabled required>
+                            <input class="col-12 form-control" type="text" id="doctorname" name="doctorName" placeholder="John Wick" value="<?php 
+                            echo $doc_fname.' '.$doc_lname ?>" hidden required>
+                            <input class="col-12 form-control" type="text" placeholder="John Wick" value="<?php 
+                            echo $doc_fname.' '.$doc_lname ?>" disabled required>
                         </div>
                         <div class="col-5 formHeading"><h5>Doctor PID:</h5></div>
                         <div class="col-7"> 
                             <!-- <label for="name1" class="col-12 ms-0 ps-0"></label>  -->
-                            <input class="col-12 form-control" type="number" id="doctorpid" name="doctorPid" placeholder="11223344556677" value="" hidden required>
-                            <input class="col-12 form-control" type="number" placeholder="11223344556677" value="" disabled required>
+                            <input class="col-12 form-control" type="text" id="doctorpid" name="doctorPid" value="<?php echo $doc_id;?>" hidden required>
+                            <input class="col-12 form-control" type="text" placeholder="11223344556677" value="<?php echo $doc_id;?>" disabled required>
                         </div>
                         <div class="col-5 formHeading"><h5>Patient Name:</h5></div>
                         <div class="col-7"> 
                             <!-- <label for="name1" class="col-12 ms-0 ps-0"></label>  -->
-                            <input class="col-12 form-control" type="text" id="patientname" name="patientName" placeholder="John Wick" value="" hidden required>
-                            <input class="col-12 form-control" type="text" placeholder="John Wick" value="" disabled required>
+                            <input class="col-12 form-control" type="text" id="patientname" name="patientName" placeholder="John Wick" value="<?php echo  $pat_fname.' '.$pat_lname ?>" hidden required>
+                            <input class="col-12 form-control" type="text" placeholder="John Wick" value="<?php echo $pat_fname.' '.$pat_lname ?>" disabled required>
                         </div>
                         <div class="col-5 formHeading"><h5>Patient PID:</h5></div>
                         <div class="col-7"> 
                             <!-- <label for="name1" class="col-12 ms-0 ps-0"></label>  -->
-                            <input class="col-12 form-control" type="number" id="patientpid" name="patientPid" placeholder="11223344556677" value="" hidden required>
-                            <input class="col-12 form-control" type="number" placeholder="11223344556677" value="" disabled required>
+                            <input class="col-12 form-control" type="text" id="patientpid" name="patientPid"  value="<?php echo $pid;?> "hidden required>
+                            <input class="col-12 form-control" type="text"  value="<?php echo $pid;?>"  disabled required>
                         </div>
                         <div class="col-5 formHeading"><h5>Purpose:</h5></div>
                         <div class="col-7"> 
@@ -251,12 +285,12 @@
                             <!-- <input class="col-12 form-control" type="text" placeholder="" value="" disabled required> -->
                         </div>
                         </div>
-                      </form>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
-                  <button class="btn btn-success">Submit</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" name="historyModalSubmit" type="submit">Submit</button>
+                    </div>
+                </form>
               </div>
             </div>
           </div>
@@ -266,7 +300,9 @@
 </body>
   <?php 
         if($validate_otp == 1){
-            echo "<script> $('#historyEditModal').modal('show') </script>";
+            echo "<script> let myModal = new bootstrap.Modal(document.getElementById('historyEditModal'), {});
+                myModal.show();
+                </script>";
         }
         pg_close();
 ?>

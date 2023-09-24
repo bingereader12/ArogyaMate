@@ -1,0 +1,405 @@
+/*necessary css*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.flex {
+    display: flex;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.navContainer {
+    height: 60px;
+    background-color: #ffffff;
+    justify-content: space-between;
+}
+
+.navlogo {
+    width: 15%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 0px 20px;
+    /* align-items: center; */
+}
+
+
+.logoimg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color:#000000;
+}
+
+.link:hover{
+    color: #005555;
+}
+
+.navlogin {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+button {
+    width: 7em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    margin-top: 7px;
+    color: #000000;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #ffffff,
+        -6px -6px 12px #e3dbe5;
+}
+
+.button1 {
+    width: 7em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    margin-top: -30px;
+    margin-left: 700px;
+    margin-bottom: 55px;
+    color: #000000;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #ffffff,
+        -6px -6px 12px #e3dbe5;
+}
+
+button::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #005555 0%, #c2c2da 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+}
+
+button:hover::before {
+    width: 9em;
+}
+
+.loginbutton:hover::before {
+    width: 9em;
+}
+
+.button1::before {
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #005555 0%, #c2c2da 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+}
+
+.button1:hover::before {
+    width: 9em;
+}
+
+ /*main page*/
+.mainContainer {
+    background-color: #ffffff;
+    padding: 100px 200px 0px 200px;
+    margin-top: -10px;
+}
+
+.WelcomeContainer {
+    height: 150px;
+    justify-content: space-evenly;
+}
+
+.container {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-bottom: -15px;
+}
+
+.slider-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 20px;
+    -webkit-appearance: none;
+    background: #005555;
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #005555;
+    border: 1px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#selectedAge {
+    font-weight: bold;
+}
+
+
+/* Container for the form
+.containers {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style for each question */
+.question {
+    margin-bottom: 20px;
+}
+
+/* Style for radio options */
+.radio-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Adjusted style for radio inputs and labels */
+.radio-options label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #005555; /* Change the color here */
+}
+
+.radio-options input[type="radio"] {
+    margin-right: 5px;
+    appearance: none; /* Remove default radio button appearance */
+    width: 16px;
+    height: 16px;
+    border: 2px solid #005555; /* Border color for the radio button */
+    border-radius: 50%; /* Make it round */
+    outline: none; /* Remove the outline */
+}
+
+.radio-options input[type="radio"]:checked {
+    background-color: #005555; /* Background color when selected */
+}
+
+.radio-options input[type="radio"]:checked::before {
+    content: "\f00c"; /* Checkmark symbol (FontAwesome) */
+    font-family: FontAwesome;
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff; /* Color of the checkmark when selected */
+}
+
+label {
+    display: block;
+    font-weight: 500;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+} */
+
+.pagecontainer{
+    display: flex;
+    align-items: center;
+    gap: 300px;
+    margin-right: 700px;
+}
+
+.containers {
+    margin: 190px auto;
+    padding: 50px;
+    border-radius: 15px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1500px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 35px;
+    font-weight: 1000;
+    text-align: center;
+    margin-top: 25px;
+    color: white;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.flex-container h6 {
+    flex: 1;
+    font-size: 14px;
+    padding-block: 10px;
+}
+
+.flex-container input,
+.flex-container select {
+    flex: 1;
+    border: 2px solid #e7e8e8;
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 15px;
+    width: 100%;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(112, 127, 140);
+    border-radius: 5px;
+}
+
+.flex-container select {
+    cursor: pointer;
+}
+
+.flex-container input:hover {
+    border-color: #005555;
+    border-width: 2px;
+}
+
+.flex-container input::placeholder {
+    color: #224e4e;
+}
+
+.flex-container select:hover {
+    border-color: #005555;
+    border-width: 2px;
+}
+
+.flex-container select::placeholder {
+    color: #828686;
+}
+
+/* Submit Button Style
+form .btn {
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    position: relative;
+    margin-left: 700px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+form .btn .btn-layer {
+    height: 100%;
+    width: 300%;
+    position: absolute;
+    left: -100%;
+    background: linear-gradient(45deg,#377d7d 0%,#0e4c4c 100%);
+    border-radius: 5px;
+    transition: all 0.4s ease;
+    ;
+}
+
+form .btn:hover .btn-layer {
+    left: 0;
+    background-color: linear-gradient(45deg,#0a3636 0%,#041b1b 100%);;
+}
+
+form .btn input[type="submit"] {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+    background: none;
+    border: none;
+    color: #fff;
+    padding-left: 0;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+} */
